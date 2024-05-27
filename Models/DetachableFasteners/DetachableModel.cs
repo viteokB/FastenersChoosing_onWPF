@@ -17,5 +17,65 @@ namespace FastenersChoosing.Models.DetachableFasteners
             gostsDb = new OleDbConnection(connectGosts);
         }
 
+        public List<string> GetListFastenersNames()
+        {
+            List<string> fastenersNames = new List<string>();
+
+            string query = "SELECT * FROM Fastener";
+            OleDbCommand dbCommand = new OleDbCommand(query, chooseDb);
+            OleDbDataReader dbReader = dbCommand.ExecuteReader();//Считываем данные
+
+            if (dbReader.HasRows == false)
+            {
+                return null;
+            }
+            while (dbReader.Read())
+            {
+                fastenersNames.Add(dbReader["Fastener"].ToString());
+            }
+
+            return fastenersNames;
+        }
+
+        public List<string> GetListFastenersTypes(string fastenerName)
+        {
+            List<string> fastenerTypes = new List<string>();
+            string query = "SELECT type FROM Fasteners_types WHERE Fastener = '" + fastenerName + "'";
+            OleDbCommand dbCommand = new OleDbCommand(query, chooseDb);
+            OleDbDataReader dbReader = dbCommand.ExecuteReader();//Считываем данные
+
+            //Проверяем данные
+            if (dbReader.HasRows == false)
+            {
+                MessageBox.Show("Данные не найдены");
+            }
+            while (dbReader.Read())
+            {
+                fastenerTypes.Add(dbReader["type"].ToString());
+            }
+
+            return fastenerTypes;
+        }
+
+        public List<string> GetListGostNumbers(string fastenerType)
+        {
+            List<string> gostNumbers = new List<string>();
+            string query = "SELECT Gost FROM Fasteners_gosts WHERE type = '" + fastenerType + "'";
+            OleDbCommand dbCommand = new OleDbCommand(query, chooseDb);
+            OleDbDataReader dbReader = dbCommand.ExecuteReader();//Считываем данные
+
+            if (dbReader.HasRows == false)
+            {
+                return null;
+            }
+            while (dbReader.Read())
+            {
+                gostNumbers.Add(dbReader["Gost"].ToString());
+            }
+
+            return gostNumbers;
+        }
+
+
     }
 }
