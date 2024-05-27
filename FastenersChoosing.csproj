@@ -6,10 +6,16 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Data\Photos\Icons\bolt.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <Content Include="Data\Photos\Icons\bolt.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\DetachableFasteners\" />
+    <Folder Include="Models\UnDetachableFasteners\" />
   </ItemGroup>
 
 </Project>
