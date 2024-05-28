@@ -25,6 +25,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
@@ -35,8 +36,8 @@
                             <TextBlock Grid.Row="0" FontSize="16" FontFamily="Microsoft Sans Serif" Foreground="White">
                                 <TextBlock.HorizontalAlignment>Center</TextBlock.HorizontalAlignment>
                                 <TextBlock.Margin>6</TextBlock.Margin>
-                                <Run Text="Выбери параметры"/><LineBreak/>
-                                <Run Text="крепежного изделия"/>
+                                <Run Text="Выбери спецификацию"/><LineBreak/>
+                                <Run Text="  крепежного изделия"/>
                             </TextBlock>
                         </Grid>
                         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" Margin="4">
@@ -55,7 +56,20 @@
                             <ComboBox Margin="0,6,0,6"
                                 />
                         </StackPanel>
+                        <Grid Grid.Row="2" Grid.ColumnSpan="2" Background="#FF6D4040">
+                            <TextBlock FontSize="16" FontFamily="Microsoft Sans Serif" Foreground="White">
+                                <TextBlock.HorizontalAlignment>Center</TextBlock.HorizontalAlignment>
+                                <TextBlock.Margin>6</TextBlock.Margin>
+                                <Run Text=" Выбери параметры"/><LineBreak/>
+                                <Run Text="крепежного изделия"/>
+                            </TextBlock>
+                        </Grid>
                     </Grid>
+                    <!--TabItem Изображения и описания изделия-->
+                    <TabControl Grid.Row="1" Grid.Column="1" Background="#FFBFC4F6" Margin="1">
+                        <TabItem Header="Изображение изделия"/>
+                        <TabItem Header="Описание изделия"/>
+                    </TabControl>
                 </Grid>
             </TabItem>
             <!--SecondTab-->
