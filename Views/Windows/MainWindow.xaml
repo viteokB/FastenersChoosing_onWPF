@@ -5,36 +5,56 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FastenersChoosing"
         mc:Ignorable="d"
-        Title="Проект: ''Подбор Крепежных изделий''" Height="450" Width="800">
+        Title="Проект: ''Подбор Крепежных изделий''" Height="550" Width="800">
     <Grid>
         <TabControl FontSize="13">
             <!--FirstTab-->
             <TabItem Header="Разъемные соединения">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="230"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid>
                         <Grid.Background>
                             <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                <GradientStop Color="#FF06097E" Offset="0"/>
-                                <GradientStop Color="#FF06097E" Offset="0.13"/>
-                                <GradientStop Color="#FF03FFA4" Offset="0.13"/>
-                                <GradientStop Color="#FF948BF6" Offset="1"/>
+                                <GradientStop Color="#FF87F7E8" Offset="0"/>
+                                <GradientStop Color="#FF8C82F9" Offset="1"/>
                             </LinearGradientBrush>
                         </Grid.Background>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" FontSize="16" FontFamily="Microsoft Sans Serif" Foreground="White">
-                            <TextBlock.HorizontalAlignment>Center</TextBlock.HorizontalAlignment>
-                            <TextBlock.Margin>6</TextBlock.Margin>
-                            <Run Text="Выбери параметры"/><LineBreak/>
-                            <Run Text="крепежного изделия"/>
-                        </TextBlock>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="#FF0B21AF">
+                            <TextBlock Grid.Row="0" FontSize="16" FontFamily="Microsoft Sans Serif" Foreground="White">
+                                <TextBlock.HorizontalAlignment>Center</TextBlock.HorizontalAlignment>
+                                <TextBlock.Margin>6</TextBlock.Margin>
+                                <Run Text="Выбери параметры"/><LineBreak/>
+                                <Run Text="крепежного изделия"/>
+                            </TextBlock>
+                        </Grid>
+                        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" Margin="4">
+                            <TextBlock FontSize="15" FontFamily="Microsoft Sans Serif" Foreground="Black" 
+                                       Text="Тип изделия:" Margin="0, 9, 0, 9" HorizontalAlignment="Right"/>
+                            <TextBlock FontSize="15" FontFamily="Microsoft Sans Serif" Foreground="Black" 
+                                       Text="Конфигурация:" Margin="0, 9, 0, 9" HorizontalAlignment="Right"/>
+                            <TextBlock FontSize="15" FontFamily="Microsoft Sans Serif" Foreground="Black" 
+                                       Text="Номер ГОСТа:" Margin="0, 9, 0, 9" HorizontalAlignment="Right"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="4">
+                            <ComboBox Margin="0,6,0,6"
+                                />
+                            <ComboBox Margin="0,6,0,6"
+                                />
+                            <ComboBox Margin="0,6,0,6"
+                                />
+                        </StackPanel>
                     </Grid>
                 </Grid>
             </TabItem>
