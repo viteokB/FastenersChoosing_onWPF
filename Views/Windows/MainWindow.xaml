@@ -32,14 +32,15 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="#FF0B21AF">
+                        <Border Grid.Row="0" Grid.ColumnSpan="2" Background="#FF0B21AF" BorderBrush="Black" BorderThickness="1">
+                            <Border.CornerRadius>10</Border.CornerRadius>
                             <TextBlock Grid.Row="0" FontSize="16" FontFamily="Microsoft Sans Serif" Foreground="White">
                                 <TextBlock.HorizontalAlignment>Center</TextBlock.HorizontalAlignment>
                                 <TextBlock.Margin>6</TextBlock.Margin>
                                 <Run Text="Выбери спецификацию"/><LineBreak/>
                                 <Run Text="  крепежного изделия"/>
                             </TextBlock>
-                        </Grid>
+                        </Border>
                         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" Margin="4">
                             <TextBlock FontSize="15" FontFamily="Microsoft Sans Serif" Foreground="Black" 
                                        Text="Тип изделия:" Margin="0, 9, 0, 9" HorizontalAlignment="Right"/>
@@ -49,21 +50,22 @@
                                        Text="Номер ГОСТа:" Margin="0, 9, 0, 9" HorizontalAlignment="Right"/>
                         </StackPanel>
                         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="4">
-                            <ComboBox Margin="0,6,0,6"
+                            <ComboBox Margin="0,6,0,6" 
                                 />
                             <ComboBox Margin="0,6,0,6"
                                 />
                             <ComboBox Margin="0,6,0,6"
                                 />
                         </StackPanel>
-                        <Grid Grid.Row="2" Grid.ColumnSpan="2" Background="#FF6D4040">
+                        <Border Grid.Row="2" Grid.ColumnSpan="2" Background="#FF6D4040" BorderBrush="Black" BorderThickness="1">
+                            <Border.CornerRadius>10</Border.CornerRadius>
                             <TextBlock FontSize="16" FontFamily="Microsoft Sans Serif" Foreground="White">
                                 <TextBlock.HorizontalAlignment>Center</TextBlock.HorizontalAlignment>
                                 <TextBlock.Margin>6</TextBlock.Margin>
                                 <Run Text=" Выбери параметры"/><LineBreak/>
                                 <Run Text="крепежного изделия"/>
                             </TextBlock>
-                        </Grid>
+                        </Border>
                     </Grid>
                     <!--TabItem Изображения и описания изделия-->
                     <TabControl Grid.Row="1" Grid.Column="1" Margin="1">
@@ -91,8 +93,8 @@
                                     <TextBlock FontSize="16" FontFamily="Microsoft Sans Serif" Foreground="White"
                                            Margin="3" HorizontalAlignment="Center" Text="Возможные спецификации данного изделия"/>
                                 </Border>
-                                
-                                <ListView Grid.Row="3">
+
+                                <ListView Grid.Row="3" Background="WhiteSmoke">
                                     
                                 </ListView>
                             </Grid>
