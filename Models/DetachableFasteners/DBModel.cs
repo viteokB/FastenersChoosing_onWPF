@@ -6,15 +6,17 @@ namespace FastenersChoosing.Models.DetachableFasteners
 {
     public class DBModel
     {
-        public static string connectChoose = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = chooseGost.mdb";
+        public static string connectChoose = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\code\\C#\\KompasAPI\\Realization\\FastenersChoosing\\Data\\ChooseGost.mdb";
         private OleDbConnection chooseDb;
-        public static string connectGosts = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = Gosts.mdb";
+        public static string connectGosts = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\code\\C#\\KompasAPI\\Realization\\FastenersChoosing\\Data\\GostData.mdb";
         private OleDbConnection gostsDb;
 
         public DBModel()
         {
             chooseDb = new OleDbConnection(connectChoose);
+            chooseDb.Open();
             gostsDb = new OleDbConnection(connectGosts);
+            gostsDb.Open();
         }
 
         public List<string> GetListFastenersNames()
