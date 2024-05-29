@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FastenersChoosing.Infrastructure.Commands
 {
-    internal class LambdaCommand : Command
+    public class LambdaCommand : Command
     {
         private Action<object> _execute;
 

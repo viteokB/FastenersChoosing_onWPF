@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:FastenersChoosing.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:FastenersChoosing"
         mc:Ignorable="d"
-        Title="Проект: ''Подбор Крепежных изделий''" Height="550" Width="800">
+        Title="Проект: ''Подбор Крепежных изделий''" Height="570" Width="800">
     <Window.DataContext>
         <vm:ComboBoxesVM/>
     </Window.DataContext>
@@ -16,7 +17,7 @@
             <TabItem Header="Разъемные соединения">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="235"/>
+                        <ColumnDefinition Width="245"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid>
@@ -54,12 +55,34 @@
                                        Text="Номер ГОСТа:" Margin="0, 9, 0, 9" HorizontalAlignment="Right"/>
                         </StackPanel>
                         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="4">
-                            <ComboBox Margin="0,6,0,6" ItemsSource="{Binding AllNames}"
-                                />
-                            <ComboBox Margin="0,6,0,6"
-                                />
-                            <ComboBox Margin="0,6,0,6"
-                                />
+                            
+                            <ComboBox Margin="0,6,0,6" ItemsSource="{Binding allNames}" SelectedValue="{Binding fastenerName}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding SelectedNameCommand}"
+                                        CommandParameter="{Binding fastenerName}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                            
+                            <ComboBox Margin="0,6,0,6" ItemsSource="{Binding namesTypes}" SelectedValue="{Binding fastenerType}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding SelectedTypeCommand}"
+                                        CommandParameter="{Binding fastenerType}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                            
+                            <ComboBox Margin="0,6,0,6" ItemsSource="{Binding typesGosts}" SelectedValue="{Binding fastenersGost}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding SelectedGostCommand}"
+                                        CommandParameter="{Binding fastenersGost}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                            
                         </StackPanel>
                         <Border Grid.Row="2" Grid.ColumnSpan="2" Background="#FF6D4040" BorderBrush="Black" BorderThickness="1">
                             <Border.CornerRadius>10</Border.CornerRadius>

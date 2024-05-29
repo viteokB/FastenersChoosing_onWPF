@@ -29,6 +29,7 @@ namespace FastenersChoosing.Models.DetachableFasteners
 
             if (dbReader.HasRows == false)
             {
+                MessageBox.Show("Данные не найдены");
                 return null;
             }
             while (dbReader.Read())
@@ -50,6 +51,7 @@ namespace FastenersChoosing.Models.DetachableFasteners
             if (dbReader.HasRows == false)
             {
                 MessageBox.Show("Данные не найдены");
+                return null;
             }
             while (dbReader.Read())
             {
@@ -68,6 +70,7 @@ namespace FastenersChoosing.Models.DetachableFasteners
 
             if (dbReader.HasRows == false)
             {
+                MessageBox.Show("Данные не найдены");
                 return null;
             }
             while (dbReader.Read())
