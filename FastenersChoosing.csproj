@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>Data\Photos\Icons\bolt.ico</ApplicationIcon>
     <Platforms>AnyCPU;x64;x86</Platforms>
+    <ApplicationIcon>Data\Photos\Icons\bolt.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,5 +22,9 @@
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
     <PackageReference Include="System.Data.OleDb" Version="8.0.0" />
   </ItemGroup>
+
+  <!--<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="call copyData.bat" />
+  </Target>-->
 
 </Project>

@@ -1,14 +1,15 @@
 ﻿using System.Data;
 using System.Data.OleDb;
+using System.Diagnostics;
 using System.Windows;
 
 namespace FastenersChoosing.Models.DetachableFasteners
 {
     public class DBModel
     {
-        public static string connectChoose = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\code\\C#\\KompasAPI\\Realization\\FastenersChoosing\\Data\\ChooseGost.mdb";
+        public static string connectChoose = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=.\\Data\\ChooseGost.mdb";
         private OleDbConnection chooseDb;
-        public static string connectGosts = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\code\\C#\\KompasAPI\\Realization\\FastenersChoosing\\Data\\GostData.mdb";
+        public static string connectGosts = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=.\\Data\\GostData.mdb";
         private OleDbConnection gostsDb;
 
         public DBModel()
@@ -19,66 +20,43 @@ namespace FastenersChoosing.Models.DetachableFasteners
             gostsDb.Open();
         }
 
-        public List<string> GetListFastenersNames()
+        private List<string> GetListFromRequest(OleDbConnection DB, string query, string readField)
         {
-            List<string> fastenersNames = new List<string>();
+            List<string> resultList = new List<string>();
 
-            string query = "SELECT * FROM Fastener";
-            OleDbCommand dbCommand = new OleDbCommand(query, chooseDb);
+            OleDbCommand dbCommand = new OleDbCommand(query, DB);
             OleDbDataReader dbReader = dbCommand.ExecuteReader();//Считываем данные
 
             if (dbReader.HasRows == false)
             {
-                MessageBox.Show("Данные не найдены");
+                MessageBox.Show($"Ошибка получения данных найдены");
                 return null;
             }
             while (dbReader.Read())
             {
-                fastenersNames.Add(dbReader["Fastener"].ToString());
+                resultList.Add(dbReader[readField].ToString());
             }
 
-            return fastenersNames;
+            return resultList;
+        }
+
+        public List<string> GetListFastenersNames()
+        {
+            return GetListFromRequest(chooseDb, "SELECT * FROM Fastener", "Fastener");
         }
 
         public List<string> GetListFastenersTypes(string fastenerName)
         {
-            List<string> fastenerTypes = new List<string>();
-            string query = "SELECT type FROM Fasteners_types WHERE Fastener = '" + fastenerName + "'";
-            OleDbCommand dbCommand = new OleDbCommand(query, chooseDb);
-            OleDbDataReader dbReader = dbCommand.ExecuteReader();//Считываем данные
-
-            //Проверяем данные
-            if (dbReader.HasRows == false)
-            {
-                MessageBox.Show("Данные не найдены");
-                return null;
-            }
-            while (dbReader.Read())
-            {
-                fastenerTypes.Add(dbReader["type"].ToString());
-            }
-
-            return fastenerTypes;
+            return GetListFromRequest(chooseDb, 
+                $"SELECT type FROM Fasteners_types WHERE Fastener = '{fastenerName}'",
+                "type");
         }
 
         public List<string> GetListGostNumbers(string fastenerType)
         {
-            List<string> gostNumbers = new List<string>();
-            string query = "SELECT Gost FROM Fasteners_gosts WHERE type = '" + fastenerType + "'";
-            OleDbCommand dbCommand = new OleDbCommand(query, chooseDb);
-            OleDbDataReader dbReader = dbCommand.ExecuteReader();//Считываем данные
-
-            if (dbReader.HasRows == false)
-            {
-                MessageBox.Show("Данные не найдены");
-                return null;
-            }
-            while (dbReader.Read())
-            {
-                gostNumbers.Add(dbReader["Gost"].ToString());
-            }
-
-            return gostNumbers;
+            return GetListFromRequest(chooseDb, 
+                $"SELECT Gost FROM Fasteners_gosts WHERE type = '{fastenerType}'",
+                "Gost");
         }
 
 
