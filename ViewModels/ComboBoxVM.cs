@@ -11,8 +11,6 @@ namespace FastenersChoosing.ViewModels
 {
     public class ComboBoxesVM : BaseViewModel
     {
-        private DBModel _DBModel = new DBModel();
-
         #region getterы получения выбранного имени, типа и госта
         private string _fastenerName;
         private string _fastenerType;
@@ -67,13 +65,13 @@ namespace FastenersChoosing.ViewModels
 
         public ComboBoxesVM()
         {
-            allNames = _DBModel.GetListFastenersNames();
+            allNames = DBModel.GetListFastenersNames();
 
             SelectedNameCommand = new LambdaCommand(
                 (name) => 
                 {
                     if(name != null)
-                        namesTypes = _DBModel.GetListFastenersTypes(name.ToString());
+                        namesTypes = DBModel.GetListFastenersTypes(name.ToString());
                     else
                         namesTypes = null;
                 });
@@ -82,7 +80,7 @@ namespace FastenersChoosing.ViewModels
                 (type) =>
                 {
                     if(type != null)
-                        typesGosts = _DBModel.GetListGostNumbers(type.ToString());
+                        typesGosts = DBModel.GetListGostNumbers(type.ToString());
                     else
                         typesGosts = null;
                 });
