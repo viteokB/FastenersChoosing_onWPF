@@ -96,8 +96,8 @@
                     </Grid>
                     <!--TabItem Изображения и описания изделия-->
                     <TabControl Grid.Row="1" Grid.Column="1" Margin="1">
-                        <TabItem Header="Изображение изделия">
-                            <Image Source="\Data\Photos\NULL_INPUT.png"/>
+                        <TabItem Header="Изображение изделия" Background="WhiteSmoke">
+                            <Image Source="{Binding FastnerImage}" Stretch="Uniform" Margin="10"/>
                         </TabItem>
                         <TabItem Header="Описание изделия">
                             <Grid>
@@ -112,9 +112,9 @@
                                     <TextBlock FontSize="16" FontFamily="Microsoft Sans Serif" Foreground="White"
                                            Margin="3" HorizontalAlignment="Center" Text=" Описание изделия"/>
                                 </Border>
-                                <ScrollViewer Grid.Row="1">
-                                    <TextBlock Background="WhiteSmoke" 
-                                                 FontSize="14" FontFamily="Times New Roman"
+                                <ScrollViewer Grid.Row="1" Background="WhiteSmoke">
+                                    <TextBlock  Margin="10,5,5,5"
+                                                 FontSize="16" FontFamily="Times New Roman"
                                                  Text="{Binding Description}" TextWrapping="Wrap"/>
                                 </ScrollViewer>
                                 <Border Grid.Row="2" Background="#FF3B4967" BorderBrush="Black" BorderThickness="1" CornerRadius="5">

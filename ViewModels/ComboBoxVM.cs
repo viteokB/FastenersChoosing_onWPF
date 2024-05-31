@@ -2,10 +2,12 @@
 using FastenersChoosing.Models.DetachableFasteners;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Markup;
+using System.Windows.Media.Imaging;
 
 namespace FastenersChoosing.ViewModels
 {
@@ -66,7 +68,9 @@ namespace FastenersChoosing.ViewModels
         #region Строки заполнения описания и путь к изображению
         private string _description;
 
-        private string _pathToImage;
+        private Uri _standartImageURI = new Uri(@"\Data\Photos\NULL_INPUT.png", UriKind.Relative);
+
+        private BitmapImage _fastenerImage;
 
         public string Description
         {
@@ -74,10 +78,10 @@ namespace FastenersChoosing.ViewModels
             set { Set<string>(ref _description, value); }
         }
 
-        public string PathToImage
+        public BitmapImage FastnerImage
         {
-            get => _pathToImage;
-            set { Set<string>(ref _pathToImage, value); }
+            get => _fastenerImage;
+            set { Set<BitmapImage>(ref _fastenerImage, value); }
         }
 
         #endregion
@@ -85,6 +89,8 @@ namespace FastenersChoosing.ViewModels
         public ComboBoxesVM()
         {
             allNames = DBModel.GetListFastenersNames();
+
+            FastnerImage = new BitmapImage(_standartImageURI);
 
             SelectedNameCommand = new LambdaCommand(
                 (name) => 
@@ -101,10 +107,21 @@ namespace FastenersChoosing.ViewModels
                     if(type != null)
                     {
                         typesGosts = DBModel.GetListGostNumbers(type.ToString());
-                        Description = DBModel.GetListDescription(fastenerType)[0];
+                        Description = DBModel.GetStringDescription(fastenerType);
                     }
                     else
                         typesGosts = null;
+                });
+            SelectedGostCommand = new LambdaCommand(
+                (gost) =>
+                {
+                    if (gost != null)
+                    {
+                        Uri uri = new Uri(DBModel.GetStringImagePath(gost.ToString()), UriKind.Relative);
+                        FastnerImage = new BitmapImage(uri);
+                    }
+                    else
+                        FastnerImage = new BitmapImage(_standartImageURI);
                 });
         }
 

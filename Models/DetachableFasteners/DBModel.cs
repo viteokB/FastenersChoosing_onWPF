@@ -38,11 +38,18 @@ namespace FastenersChoosing.Models.DetachableFasteners
                 "Gost");
         }
 
-        public static List<string> GetListDescription(string  fastenerType)
+        public static string GetStringDescription(string  fastenerType)
         {
-            return GetListFromRequest(chooseDb,
+            return GetStringFromRequest(chooseDb,
                 $"SELECT Description FROM Fasteners_types WHERE type = '{fastenerType}'",
                 "Description");
+        }
+
+        public static string GetStringImagePath(string fastenerGost)
+        {
+            return GetStringFromRequest(chooseDb,
+                $"SELECT Path FROM Fasteners_gosts WHERE Gost = '{fastenerGost}'",
+                "Path");
         }
 
         private static List<string> GetListFromRequest(OleDbConnection DB, string query, string readField)
@@ -65,5 +72,18 @@ namespace FastenersChoosing.Models.DetachableFasteners
             return resultList;
         }
 
+        private static string GetStringFromRequest(OleDbConnection DB, string query, string readField)
+        {
+            OleDbCommand dbCommand = new OleDbCommand(query, DB);
+            OleDbDataReader dbReader = dbCommand.ExecuteReader();//Считываем данные
+
+            if (dbReader.HasRows == false || !dbReader.Read())
+            {
+                MessageBox.Show($"Ошибка получения данных найдены");
+                return null;
+            }
+
+            return dbReader[readField].ToString();
+        }
     }
 }
