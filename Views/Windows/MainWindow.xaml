@@ -112,10 +112,11 @@
                                     <TextBlock FontSize="16" FontFamily="Microsoft Sans Serif" Foreground="White"
                                            Margin="3" HorizontalAlignment="Center" Text=" Описание изделия"/>
                                 </Border>
-                                
-                                <RichTextBox Grid.Row="1" Background="WhiteSmoke"
-                                             FontSize="14" FontFamily="Times New Roman"/>
-                                
+                                <ScrollViewer Grid.Row="1">
+                                    <TextBlock Background="WhiteSmoke" 
+                                                 FontSize="14" FontFamily="Times New Roman"
+                                                 Text="{Binding Description}" TextWrapping="Wrap"/>
+                                </ScrollViewer>
                                 <Border Grid.Row="2" Background="#FF3B4967" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
                                     <TextBlock FontSize="16" FontFamily="Microsoft Sans Serif" Foreground="White"
                                            Margin="3" HorizontalAlignment="Center" Text="Возможные спецификации данного изделия"/>

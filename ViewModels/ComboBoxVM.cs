@@ -63,6 +63,25 @@ namespace FastenersChoosing.ViewModels
 
         #endregion
 
+        #region Строки заполнения описания и путь к изображению
+        private string _description;
+
+        private string _pathToImage;
+
+        public string Description
+        {
+            get => _description;
+            set { Set<string>(ref _description, value); }
+        }
+
+        public string PathToImage
+        {
+            get => _pathToImage;
+            set { Set<string>(ref _pathToImage, value); }
+        }
+
+        #endregion
+
         public ComboBoxesVM()
         {
             allNames = DBModel.GetListFastenersNames();
@@ -80,7 +99,10 @@ namespace FastenersChoosing.ViewModels
                 (type) =>
                 {
                     if(type != null)
+                    {
                         typesGosts = DBModel.GetListGostNumbers(type.ToString());
+                        Description = DBModel.GetListDescription(fastenerType)[0];
+                    }
                     else
                         typesGosts = null;
                 });

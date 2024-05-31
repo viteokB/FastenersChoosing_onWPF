@@ -42,7 +42,7 @@ namespace FastenersChoosing.Models.DetachableFasteners
         {
             return GetListFromRequest(chooseDb,
                 $"SELECT Description FROM Fasteners_types WHERE type = '{fastenerType}'",
-                "Gost");
+                "Description");
         }
 
         private static List<string> GetListFromRequest(OleDbConnection DB, string query, string readField)
