@@ -54,13 +54,6 @@ namespace FastenersChoosing.Models.DetachableFasteners
                 "Path");
         }
 
-        public static List<List<string>> GetPathAndGost(string fastenerType)
-        {
-            return GetLLStringFromRequest(chooseDb,
-                $"SELECT Path, Gost FROM Fasteners_gosts WHERE type = '{fastenerType}'",
-                "Gost", "Path");
-        }
-
         private static List<string> GetListFromRequest(OleDbConnection DB, string query, string readField)
         {
             List<string> resultList = new List<string>();

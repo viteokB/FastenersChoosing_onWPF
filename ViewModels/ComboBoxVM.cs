@@ -42,8 +42,6 @@ namespace FastenersChoosing.ViewModels
 
         private List<string> _typesGosts;
 
-        private List<List<string>> _gostsImages;
-
         public List<string> allNames
         {
             get => _allNames;
@@ -56,10 +54,10 @@ namespace FastenersChoosing.ViewModels
             private set { Set<List<string>>(ref _namesTypes, value); } 
         }
 
-        public List<List<string>> GostsImages
+        public List<string> typesGosts
         {
-            get => _gostsImages;
-            private set { Set<List<List<string>>>(ref _gostsImages, value); }
+            get => _typesGosts;
+            private set { Set<List<string>>(ref _typesGosts, value); }
         }
 
 
@@ -111,11 +109,11 @@ namespace FastenersChoosing.ViewModels
                 {
                     if(type != null)
                     {
-                        GostsImages = DBModel.GetPathAndGost(type.ToString());
+                        typesGosts = DBModel.GetListGostNumbers(type.ToString());
                         Description = DBModel.GetStringDescription(fastenerType);
                     }
                     else
-                        GostsImages = null;
+                        typesGosts = null;
                 });
             SelectedGostCommand = new LambdaCommand(
                 (gost) =>
