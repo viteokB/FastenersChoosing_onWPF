@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Markup;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace FastenersChoosing.ViewModels
@@ -14,24 +15,21 @@ namespace FastenersChoosing.ViewModels
     public class ComboBoxesVM : BaseViewModel
     {
         #region getterы получения выбранного имени, типа и госта
-        private string _fastenerName;
-        private string _fastenerType;
-        private string _fastenersGost;
 
         public string fastenerName 
         {
-            get => _fastenerName; 
-            set { Set<string>(ref _fastenerName, value); }
+            get => Fastener.Name; 
+            set { Set<string>(ref Fastener.Name, value); }
         }
         public string fastenerType 
         {
-            get => _fastenerType;
-            set { Set<string>(ref _fastenerType, value); }
+            get => Fastener.Type;
+            set { Set<string>(ref Fastener.Type, value); }
         }
         public string fastenersGost 
         {
-            get => _fastenersGost;
-            set { Set<string>(ref _fastenersGost, value); }
+            get => Fastener.Gost;
+            set { Set<string>(ref Fastener.Gost, value); }
         }
 
         #endregion
@@ -65,24 +63,29 @@ namespace FastenersChoosing.ViewModels
 
         #endregion
 
-        #region Строки заполнения описания и путь к изображению
-        private string _description;
-
-        private Uri _standartImageURI = new Uri(@"\Data\Photos\NULL_INPUT.png", UriKind.Relative);
-
-        private BitmapImage _fastenerImage;
+        #region Строка описания и путь к изображению
 
         public string Description
         {
-            get => _description;
-            set { Set<string>(ref _description, value); }
+            get => Fastener.Description;
+            set { Set<string>(ref Fastener.Description, value); }
         }
+
+        private string _standartPath = @"\Data\Photos\NULL_INPUT.png";
 
         public BitmapImage FastnerImage
         {
-            get => _fastenerImage;
-            set { Set<BitmapImage>(ref _fastenerImage, value); }
+            get => Fastener.Image;
+            set { Set<BitmapImage>(ref Fastener.Image, value); }
         }
+
+        #endregion
+
+        #region Объявления команд
+
+        public LambdaCommand SelectedNameCommand { get; }
+        public LambdaCommand SelectedTypeCommand { get; }
+        public LambdaCommand SelectedGostCommand { get; }
 
         #endregion
 
@@ -90,7 +93,7 @@ namespace FastenersChoosing.ViewModels
         {
             allNames = DBModel.GetListFastenersNames();
 
-            FastnerImage = new BitmapImage(_standartImageURI);
+            SetImage(_standartPath);
 
             SelectedNameCommand = new LambdaCommand(
                 (name) => 
@@ -117,19 +120,28 @@ namespace FastenersChoosing.ViewModels
                 {
                     if (gost != null)
                     {
-                        Uri uri = new Uri(DBModel.GetStringImagePath(gost.ToString()), UriKind.Relative);
-                        FastnerImage = new BitmapImage(uri);
+                        SetImage(DBModel.GetStringImagePath(gost.ToString()));
                     }
                     else
-                        FastnerImage = new BitmapImage(_standartImageURI);
+                        SetImage(_standartPath);
                 });
         }
 
-        #region Объявления команд
+        #region Методы установки изображения по отн. пути
+        public void SetImage(string localPath)
+        {
+            Uri uri = new Uri(GetAbsolutPath(localPath), UriKind.RelativeOrAbsolute);
 
-        public LambdaCommand SelectedNameCommand { get;  }
-        public LambdaCommand SelectedTypeCommand { get; }
-        public LambdaCommand SelectedGostCommand { get; }
+            FastnerImage = new BitmapImage(uri);
+        }
+
+        private string GetAbsolutPath(string localPath)
+        {
+            string currentDirectory = Directory.GetCurrentDirectory();
+            string absolutPath = currentDirectory + localPath;
+
+            return absolutPath;
+        }
 
         #endregion
     }
