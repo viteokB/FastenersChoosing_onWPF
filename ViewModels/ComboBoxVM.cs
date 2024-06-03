@@ -22,7 +22,12 @@ namespace FastenersChoosing.ViewModels
             set => Set(ref _selectedFastener, value);
         }
 
-        public ObservableCollection<Fastener> PossibleFastners { get; set; }
+        private ObservableCollection<Fastener> _possibleFastners;
+        public ObservableCollection<Fastener> PossibleFastners 
+        {
+            get => _possibleFastners;
+            set => Set(ref _possibleFastners, value);
+        }
 
         #region Списки строк для заполнения ComboBoxesItems
 
@@ -72,8 +77,6 @@ namespace FastenersChoosing.ViewModels
 
             allNames = DBModel.GetListFastenersNames();
 
-            PossibleFastners = new ObservableCollection<Fastener>();
-
             SelectedNameCommand = new LambdaCommand(
                 (name) =>
                 {
@@ -110,12 +113,12 @@ namespace FastenersChoosing.ViewModels
 
         public void FillPossibleFasteners(List<string> gosts, List<string> localPaths)
         {
+            PossibleFastners = new ObservableCollection<Fastener>();
+
             for (int i = 0; i < gosts.Count; i++)
             {
                 PossibleFastners.Add(new Fastener(gosts[i], SetImage(localPaths[i])));
             }
-
-            return;
         }
 
         #region Методы установки изображения по отн. пути

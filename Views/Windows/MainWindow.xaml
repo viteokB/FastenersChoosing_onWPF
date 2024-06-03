@@ -134,7 +134,7 @@
                                             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                                                 <TextBlock Text="{Binding Gost}"
                                                            VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                                <Image Source="{Binding Image}" Width="120" Height="120"
+                                                <Image Source="{Binding Image}" Width="150" Height="150"
                                                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                             </StackPanel>
                                         </DataTemplate>
