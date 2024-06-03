@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:FastenersChoosing.ViewModels"
+        xmlns:fm="clr-namespace:FastenersChoosing.Models.DetachableFasteners"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:FastenersChoosing"
         mc:Ignorable="d"
@@ -56,29 +57,29 @@
                         </StackPanel>
                         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="4">
                             
-                            <ComboBox Margin="0,6,0,6" ItemsSource="{Binding allNames}" SelectedValue="{Binding fastenerName}">
+                            <ComboBox Margin="0,6,0,6" ItemsSource="{Binding allNames}" SelectedValue="{Binding SelectedFastener.Name}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectionChanged">
                                         <i:InvokeCommandAction Command="{Binding SelectedNameCommand}"
-                                        CommandParameter="{Binding fastenerName}" />
+                                        CommandParameter="{Binding SelectedFastener.Name}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </ComboBox>
-                            
-                            <ComboBox Margin="0,6,0,6" ItemsSource="{Binding namesTypes}" SelectedValue="{Binding fastenerType}">
+
+                            <ComboBox Margin="0,6,0,6" ItemsSource="{Binding namesTypes}" SelectedValue="{Binding SelectedFastener.Type}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectionChanged">
                                         <i:InvokeCommandAction Command="{Binding SelectedTypeCommand}"
-                                        CommandParameter="{Binding fastenerType}" />
+                                        CommandParameter="{Binding SelectedFastener.Type}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </ComboBox>
-                            
-                            <ComboBox Margin="0,6,0,6" ItemsSource="{Binding typesGosts}" SelectedValue="{Binding fastenersGost}">
+
+                            <ComboBox Margin="0,6,0,6" ItemsSource="{Binding typesGosts}" SelectedValue="{Binding SelectedFastener.Gost}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectionChanged">
                                         <i:InvokeCommandAction Command="{Binding SelectedGostCommand}"
-                                        CommandParameter="{Binding fastenersGost}" />
+                                        CommandParameter="{Binding SelectedFastener.Gost}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </ComboBox>
@@ -97,7 +98,7 @@
                     <!--TabItem Изображения и описания изделия-->
                     <TabControl Grid.Row="1" Grid.Column="1" Margin="1">
                         <TabItem Header="Изображение изделия" Background="WhiteSmoke">
-                            <Image Source="{Binding FastnerImage}" Stretch="Uniform" Margin="10"/>
+                            <Image Source="{Binding SelectedFastener.Image}" Stretch="Uniform" Margin="10"/>
                         </TabItem>
                         <TabItem Header="Описание изделия">
                             <Grid>
@@ -115,15 +116,29 @@
                                 <ScrollViewer Grid.Row="1" Background="WhiteSmoke">
                                     <TextBlock  Margin="10,5,5,5"
                                                  FontSize="16" FontFamily="Times New Roman"
-                                                 Text="{Binding Description}" TextWrapping="Wrap"/>
+                                                 Text="{Binding SelectedFastener.Description}" TextWrapping="Wrap"/>
                                 </ScrollViewer>
                                 <Border Grid.Row="2" Background="#FF3B4967" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
                                     <TextBlock FontSize="16" FontFamily="Microsoft Sans Serif" Foreground="White"
                                            Margin="3" HorizontalAlignment="Center" Text="Возможные спецификации данного изделия"/>
                                 </Border>
 
-                                <ListView Grid.Row="3" Background="WhiteSmoke">
-                                    
+                                <ListView Grid.Row="3" Background="WhiteSmoke" ItemsSource="{Binding PossibleFastners}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <UniformGrid Columns="3"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                <TextBlock Text="{Binding Gost}"
+                                                           VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                <Image Source="{Binding Image}" Width="120" Height="120"
+                                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
                                 </ListView>
                             </Grid>
                         </TabItem>
