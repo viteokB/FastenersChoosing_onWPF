@@ -8,17 +8,25 @@ using System.Windows.Media.Imaging;
 
 namespace FastenersChoosing.Models.DetachableFasteners
 {
-    public static class Fastener
+    public class Fastener
     {
-        public static string Name = null;
+        public string Name = null;
 
-        public static string Type = null;
+        public string Type = null;
 
-        public static string Gost = null;
+        public string Gost = null;
 
-        public static string Description = null;
+        public string Description = null;
 
-        public static BitmapImage Image;
+        public BitmapImage Image;
+
+        public static BitmapImage DefaultImage;
+        public Fastener(BitmapImage defaultImage)
+        {
+            DefaultImage = defaultImage;
+
+            Image = DefaultImage;
+        }
     }
 }
 

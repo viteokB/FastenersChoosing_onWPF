@@ -74,7 +74,7 @@
                                 </i:Interaction.Triggers>
                             </ComboBox>
                             
-                            <ComboBox Margin="0,6,0,6" ItemsSource="{Binding GostsImages[0]}" SelectedValue="{Binding fastenersGost}">
+                            <ComboBox Margin="0,6,0,6" ItemsSource="{Binding typesGosts}" SelectedValue="{Binding fastenersGost}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectionChanged">
                                         <i:InvokeCommandAction Command="{Binding SelectedGostCommand}"

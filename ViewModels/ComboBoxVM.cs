@@ -2,6 +2,7 @@
 using FastenersChoosing.Models.DetachableFasteners;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,22 +15,26 @@ namespace FastenersChoosing.ViewModels
 {
     public class ComboBoxesVM : BaseViewModel
     {
+        public Fastener SelectedFastener;
+
+        public ObservableCollection<Fastener> PossibleFastners;
+
         #region getterы получения выбранного имени, типа и госта
 
         public string fastenerName 
         {
-            get => Fastener.Name; 
-            set { Set<string>(ref Fastener.Name, value); }
+            get => SelectedFastener.Name; 
+            set { Set<string>(ref SelectedFastener.Name, value); }
         }
         public string fastenerType 
         {
-            get => Fastener.Type;
-            set { Set<string>(ref Fastener.Type, value); }
+            get => SelectedFastener.Type;
+            set { Set<string>(ref SelectedFastener.Type, value); }
         }
         public string fastenersGost 
         {
-            get => Fastener.Gost;
-            set { Set<string>(ref Fastener.Gost, value); }
+            get => SelectedFastener.Gost;
+            set { Set<string>(ref SelectedFastener.Gost, value); }
         }
 
         #endregion
@@ -41,8 +46,6 @@ namespace FastenersChoosing.ViewModels
         private List<string> _namesTypes;
 
         private List<string> _typesGosts;
-
-        private List<List<string>> _gostsImages;
 
         public List<string> allNames
         {
@@ -56,12 +59,11 @@ namespace FastenersChoosing.ViewModels
             private set { Set<List<string>>(ref _namesTypes, value); } 
         }
 
-        public List<List<string>> GostsImages
+        public List<string> typesGosts
         {
-            get => _gostsImages;
-            private set { Set<List<List<string>>>(ref _gostsImages, value); }
+            get => _typesGosts;
+            private set { Set<List<string>>(ref _typesGosts, value); }
         }
-
 
         #endregion
 
@@ -69,16 +71,16 @@ namespace FastenersChoosing.ViewModels
 
         public string Description
         {
-            get => Fastener.Description;
-            set { Set<string>(ref Fastener.Description, value); }
+            get => SelectedFastener.Description;
+            set { Set<string>(ref SelectedFastener.Description, value); }
         }
 
         private string _standartPath = @"\Data\Photos\NULL_INPUT.png";
 
         public BitmapImage FastnerImage
         {
-            get => Fastener.Image;
-            set { Set<BitmapImage>(ref Fastener.Image, value); }
+            get => SelectedFastener.Image;
+            set { Set<BitmapImage>(ref SelectedFastener.Image, value); }
         }
 
         #endregion
@@ -93,9 +95,9 @@ namespace FastenersChoosing.ViewModels
 
         public ComboBoxesVM()
         {
-            allNames = DBModel.GetListFastenersNames();
+            SelectedFastener = new Fastener(SetImage(_standartPath));
 
-            SetImage(_standartPath);
+            allNames = DBModel.GetListFastenersNames();
 
             SelectedNameCommand = new LambdaCommand(
                 (name) => 
@@ -111,30 +113,31 @@ namespace FastenersChoosing.ViewModels
                 {
                     if(type != null)
                     {
-                        GostsImages = DBModel.GetPathAndGost(type.ToString());
+                        var gostsImages = DBModel.GetPathAndGost(type.ToString());
+                        typesGosts = gostsImages[0];
                         Description = DBModel.GetStringDescription(fastenerType);
                     }
                     else
-                        GostsImages = null;
+                        typesGosts = null;
                 });
             SelectedGostCommand = new LambdaCommand(
                 (gost) =>
                 {
                     if (gost != null)
                     {
-                        SetImage(DBModel.GetStringImagePath(gost.ToString()));
+                        FastnerImage = SetImage(DBModel.GetStringImagePath(gost.ToString()));
                     }
                     else
-                        SetImage(_standartPath);
+                        FastnerImage = Fastener.DefaultImage;
                 });
         }
 
         #region Методы установки изображения по отн. пути
-        public void SetImage(string localPath)
+        public BitmapImage SetImage(string localPath)
         {
-            Uri uri = new Uri(GetAbsolutPath(localPath), UriKind.RelativeOrAbsolute);
+            Uri uri = new Uri(GetAbsolutPath(localPath), UriKind.Absolute);
 
-            FastnerImage = new BitmapImage(uri);
+            return new BitmapImage(uri);
         }
 
         private string GetAbsolutPath(string localPath)
