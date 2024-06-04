@@ -1,33 +1,52 @@
 ﻿using FastenersChoosing.Infrastructure.Commands;
 using FastenersChoosing.Models.DetachableFasteners;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Markup;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace FastenersChoosing.ViewModels
 {
-    public class ComboBoxesVM : BaseViewModel
+    public class MainVM : BaseViewModel
     {
+        #region Свойства
+        #region SelectedFastener
         private Fastener _selectedFastener;
         public Fastener SelectedFastener
         {
             get => _selectedFastener;
             set => Set(ref _selectedFastener, value);
         }
+        #endregion
 
+        #region PossibleFastners
         private ObservableCollection<Fastener> _possibleFastners;
         public ObservableCollection<Fastener> PossibleFastners 
         {
             get => _possibleFastners;
             set => Set(ref _possibleFastners, value);
         }
+        #endregion
+
+        #region SelectedIndex для выбора изделия из ListView
+        private int _selectedIndex;
+        public int SelectedIndex
+        {
+            get => _selectedIndex;
+            set => Set(ref _selectedIndex, value);
+        }
+        #endregion
+
+        #region SelectedTabIndex
+
+        private int _selectedTabIndex;
+
+        public int SelectedTabIndex
+        {
+            get => _selectedTabIndex;
+            set => Set(ref _selectedTabIndex, value);
+        }
+
+        #endregion
 
         #region Списки строк для заполнения ComboBoxesItems
 
@@ -63,15 +82,18 @@ namespace FastenersChoosing.ViewModels
 
         #endregion
 
+        #endregion
+
         #region Объявления команд
 
         public LambdaCommand SelectedNameCommand { get; }
         public LambdaCommand SelectedTypeCommand { get; }
         public LambdaCommand SelectedGostCommand { get; }
+        public LambdaCommand SelectedAnotherCommand { get; }
 
         #endregion
 
-        public ComboBoxesVM()
+        public MainVM()
         {
             SelectedFastener = new Fastener(SetImage(_standartPath));
 
@@ -95,6 +117,7 @@ namespace FastenersChoosing.ViewModels
                         typesGosts = gostsImages[0];
                         FillPossibleFasteners(typesGosts, gostsImages[1]);
                         SelectedFastener.Description = DBModel.GetStringDescription(type.ToString());
+                        SelectedTabIndex = 1;
                     }
                     else
                         typesGosts = null;
@@ -109,6 +132,17 @@ namespace FastenersChoosing.ViewModels
                     else
                         SelectedFastener.Image = Fastener.DefaultImage;
                 });
+            SelectedAnotherCommand = new LambdaCommand(
+            (newFastener) =>
+            {
+                if (newFastener != null && SelectedIndex >= 0 && SelectedIndex < PossibleFastners.Count)
+                {
+                    var tmp = PossibleFastners[SelectedIndex];
+                    SelectedFastener.Gost = tmp.Gost;
+                    SelectedFastener.Image = tmp.Image;
+                    SelectedTabIndex = 0;
+                }
+            });
         }
 
         public void FillPossibleFasteners(List<string> gosts, List<string> localPaths)
