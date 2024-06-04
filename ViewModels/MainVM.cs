@@ -1,20 +1,12 @@
 ﻿using FastenersChoosing.Infrastructure.Commands;
 using FastenersChoosing.Models.DetachableFasteners;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Markup;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace FastenersChoosing.ViewModels
 {
-    public class ComboBoxesVM : BaseViewModel
+    public class MainVM : BaseViewModel
     {
         #region Свойства
         #region SelectedFastener
@@ -101,7 +93,7 @@ namespace FastenersChoosing.ViewModels
 
         #endregion
 
-        public ComboBoxesVM()
+        public MainVM()
         {
             SelectedFastener = new Fastener(SetImage(_standartPath));
 
