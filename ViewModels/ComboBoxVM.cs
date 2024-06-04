@@ -29,6 +29,13 @@ namespace FastenersChoosing.ViewModels
             set => Set(ref _possibleFastners, value);
         }
 
+        private int _selectedIndex;
+        public int SelectedIndex
+        {
+            get => _selectedIndex;
+            set => Set(ref _selectedIndex, value);
+        }
+
         #region Списки строк для заполнения ComboBoxesItems
 
         private List<string> _allNames;
@@ -68,6 +75,7 @@ namespace FastenersChoosing.ViewModels
         public LambdaCommand SelectedNameCommand { get; }
         public LambdaCommand SelectedTypeCommand { get; }
         public LambdaCommand SelectedGostCommand { get; }
+        public LambdaCommand SelectedAnotherCommand { get; }
 
         #endregion
 
@@ -109,6 +117,16 @@ namespace FastenersChoosing.ViewModels
                     else
                         SelectedFastener.Image = Fastener.DefaultImage;
                 });
+            SelectedAnotherCommand = new LambdaCommand(
+            (newFastener) =>
+            {
+                if (newFastener != null && SelectedIndex >= 0 && SelectedIndex < PossibleFastners.Count)
+                {
+                    var tmp = PossibleFastners[SelectedIndex];
+                    SelectedFastener.Gost = tmp.Gost;
+                    SelectedFastener.Image = tmp.Image;
+                }
+            });
         }
 
         public void FillPossibleFasteners(List<string> gosts, List<string> localPaths)
