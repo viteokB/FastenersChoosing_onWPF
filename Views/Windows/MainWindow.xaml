@@ -18,14 +18,14 @@
             <TabItem Header="Разъемные соединения">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="245"/>
+                        <ColumnDefinition Width="260"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid>
                         <Grid.Background>
                             <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                 <GradientStop Color="#FF87F7E8" Offset="0"/>
-                                <GradientStop Color="#FF8C82F9" Offset="1"/>
+                                <GradientStop Color="#FFCC9AEE" Offset="1"/>
                             </LinearGradientBrush>
                         </Grid.Background>
                         <Grid.RowDefinitions>
@@ -96,7 +96,7 @@
                         </Border>
                     </Grid>
                     <!--TabItem Изображения и описания изделия-->
-                    <TabControl Grid.Row="1" Grid.Column="1" Margin="1">
+                    <TabControl Grid.Row="1" Grid.Column="1" Margin="1" SelectedIndex="{Binding SelectedTabIndex}">
                         <TabItem Header="Изображение изделия" Background="WhiteSmoke">
                             <Image Source="{Binding SelectedFastener.Image}" Stretch="Uniform" Margin="10"/>
                         </TabItem>
@@ -146,6 +146,11 @@
                                             </StackPanel>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
+                                    <ListView.ToolTip>
+                                        <ToolTip Background="#FFA8FDA3" HasDropShadow="True">
+                                            <TextBlock Text="Щелкните дважды правой кнопкой мыши, чтобы выбрать"/>
+                                        </ToolTip>
+                                    </ListView.ToolTip>
                                 </ListView>
                             </Grid>
                         </TabItem>

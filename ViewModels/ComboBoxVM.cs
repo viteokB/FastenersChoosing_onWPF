@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Markup;
@@ -15,26 +16,45 @@ namespace FastenersChoosing.ViewModels
 {
     public class ComboBoxesVM : BaseViewModel
     {
+        #region Свойства
+        #region SelectedFastener
         private Fastener _selectedFastener;
         public Fastener SelectedFastener
         {
             get => _selectedFastener;
             set => Set(ref _selectedFastener, value);
         }
+        #endregion
 
+        #region PossibleFastners
         private ObservableCollection<Fastener> _possibleFastners;
         public ObservableCollection<Fastener> PossibleFastners 
         {
             get => _possibleFastners;
             set => Set(ref _possibleFastners, value);
         }
+        #endregion
 
+        #region SelectedIndex для выбора изделия из ListView
         private int _selectedIndex;
         public int SelectedIndex
         {
             get => _selectedIndex;
             set => Set(ref _selectedIndex, value);
         }
+        #endregion
+
+        #region SelectedTabIndex
+
+        private int _selectedTabIndex;
+
+        public int SelectedTabIndex
+        {
+            get => _selectedTabIndex;
+            set => Set(ref _selectedTabIndex, value);
+        }
+
+        #endregion
 
         #region Списки строк для заполнения ComboBoxesItems
 
@@ -67,6 +87,8 @@ namespace FastenersChoosing.ViewModels
         #region Строка-путь к стандартному изображению
 
         private string _standartPath = @"\Data\Photos\NULL_INPUT.png";
+
+        #endregion
 
         #endregion
 
@@ -103,6 +125,7 @@ namespace FastenersChoosing.ViewModels
                         typesGosts = gostsImages[0];
                         FillPossibleFasteners(typesGosts, gostsImages[1]);
                         SelectedFastener.Description = DBModel.GetStringDescription(type.ToString());
+                        SelectedTabIndex = 1;
                     }
                     else
                         typesGosts = null;
@@ -125,6 +148,7 @@ namespace FastenersChoosing.ViewModels
                     var tmp = PossibleFastners[SelectedIndex];
                     SelectedFastener.Gost = tmp.Gost;
                     SelectedFastener.Image = tmp.Image;
+                    SelectedTabIndex = 0;
                 }
             });
         }
