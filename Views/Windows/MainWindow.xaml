@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         Title="Проект: ''Подбор Крепежных изделий''" Height="570" Width="800">
     <Window.DataContext>
-        <vm:ComboBoxesVM/>
+        <vm:MainVM/>
     </Window.DataContext>
     <Grid>
         <TabControl FontSize="13">
