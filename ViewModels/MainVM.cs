@@ -82,6 +82,17 @@ namespace FastenersChoosing.ViewModels
 
         #endregion
 
+        #region
+
+        private Dictionary<string, List<string>> _gostParametrs;
+        public Dictionary<string, List<string>> GostParametrs 
+        {
+            get => _gostParametrs;
+            set => Set(ref _gostParametrs, value); 
+        }
+
+        #endregion
+
         #endregion
 
         #region Объявления команд
@@ -128,6 +139,7 @@ namespace FastenersChoosing.ViewModels
                     if (gost != null)
                     {
                         SelectedFastener.Image = SetImage(DBModel.GetStringImagePath(gost.ToString()));
+                        GostParametrs = DBModel.GetGostParametrs(gost.ToString());
                     }
                     else
                         SelectedFastener.Image = Fastener.DefaultImage;

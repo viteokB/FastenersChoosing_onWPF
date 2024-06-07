@@ -61,6 +61,56 @@ namespace FastenersChoosing.Models.DetachableFasteners
                 "Gost", "Path");
         }
 
+        public static Dictionary<string, List<string>> GetGostParametrs(string fastenerGost)
+        {
+            if (!TableExists(gostsDb, fastenerGost))
+            {
+                MessageBox.Show($"Не существует таблицы \"{fastenerGost}\"");
+                return null;
+            }
+
+            Dictionary<string, List<string>> paramValues = new();
+            string query = $"SELECT TOP 1 * FROM [{fastenerGost}]";
+            OleDbCommand dbCommand = new OleDbCommand(query, gostsDb);
+            OleDbDataReader dbReader = dbCommand.ExecuteReader();//Считываем данные
+
+            List<string> paramNames = GetListHeaderParams(dbReader);
+
+            foreach(string fieldName in paramNames)
+            {
+                paramValues.Add(fieldName, 
+                    GetListFromRequest(gostsDb, $"SELECT distinct [{fieldName}] FROM [{fastenerGost}]", fieldName));
+            }
+
+            return paramValues;
+        }
+        private static bool TableExists(OleDbConnection connection, string tableName)
+        {
+            DataTable schema = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, new object[] { null, null, tableName, "TABLE" });
+            return schema.Rows.Count > 0;
+        }
+
+        private static List<string> GetListHeaderParams(OleDbDataReader oleDbDataReader)
+        {
+            List<string> result = new List<string>();
+
+            if (CheckHasRows(oleDbDataReader))
+            {
+                int fieldCount = oleDbDataReader.FieldCount;
+                string curField = null;
+                for (int i = 0; i < fieldCount; i++)
+                {
+                    curField = oleDbDataReader.GetName(i);
+                    if (curField != "Код")
+                    {
+                        result.Add(curField);
+                    }
+                }
+            }
+
+            return result;
+        }
+
         private static List<string> GetListFromRequest(OleDbConnection DB, string query, string readField)
         {
             List<string> resultList = new List<string>();
