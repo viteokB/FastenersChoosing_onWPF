@@ -83,6 +83,25 @@
                                 <Run Text="крепежного изделия"/>
                             </TextBlock>
                         </Border>
+                        <ListView Grid.Row="3" Grid.ColumnSpan="2" Style="{StaticResource ResourceKey=TransparentLV}"
+                                  ItemsSource="{Binding GostParametrs}" Margin="0,15,0,15">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource ParamsStyle}" Text="{Binding Key}" 
+                                                   Margin="5" Width="170" x:Name="justTB"/>
+                                        <ComboBox ItemsSource="{Binding Value}" Width="60" HorizontalAlignment="Right" MaxDropDownHeight="180"/>
+                                    </StackPanel>
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=IsMouseOver}" Value="True">
+                                            <Setter Property="TextElement.Foreground" Value="#FF1F01C3" TargetName="justTB"/>
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+
+                        </ListView>
+                        
                     </Grid>
                     <!--TabItem Изображения и описания изделия-->
                     <TabControl Grid.Row="1" Grid.Column="1" Margin="1" SelectedIndex="{Binding SelectedTabIndex}">
