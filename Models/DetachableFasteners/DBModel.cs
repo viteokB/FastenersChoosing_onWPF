@@ -1,8 +1,10 @@
-﻿using System.Data;
+﻿using FastenersChoosing.ViewModels;
+using System.Data;
 using System.Data.OleDb;
 using System.Diagnostics;
 using System.IO.Packaging;
 using System.Reflection.PortableExecutable;
+using System.Text;
 using System.Windows;
 
 namespace FastenersChoosing.Models.DetachableFasteners
@@ -40,7 +42,7 @@ namespace FastenersChoosing.Models.DetachableFasteners
                 "Gost");
         }
 
-        public static string GetStringDescription(string  fastenerType)
+        public static string GetStringDescription(string fastenerType)
         {
             return GetStringFromRequest(chooseDb,
                 $"SELECT Description FROM Fasteners_types WHERE type = '{fastenerType}'",
@@ -61,7 +63,41 @@ namespace FastenersChoosing.Models.DetachableFasteners
                 "Gost", "Path");
         }
 
-        public static Dictionary<string, List<string>> GetGostParametrs(string fastenerGost)
+        public static void ModifyListParamsWhere(string fromGost, List<Parametr> listParametrs)
+        {
+            if (!TableExists(gostsDb, fromGost))
+            {
+                MessageBox.Show($"Не существует таблицы \"{fromGost}\"");
+                return;
+            }
+
+            string querryLastPart = QuerryStringWhere(fromGost, listParametrs);
+
+            foreach (Parametr parametr in listParametrs)
+            {
+                string querry = $"SELECT distinct [{parametr.Name}] " + querryLastPart;
+                parametr.ListValues = GetListFromRequest(gostsDb, querry, parametr.Name);
+            }
+        }
+
+        private static string QuerryStringWhere(string fromGost, List<Parametr>  parametrList)
+        {
+            StringBuilder query = new StringBuilder($" FROM [{fromGost}] WHERE ");
+
+            foreach (Parametr parametr in parametrList)
+            {
+                if(!String.IsNullOrEmpty(parametr.SelectedValue))
+                    query.Append($" [{parametr.Name}] = {parametr.SelectedValue.Replace(',', '.')} AND ");
+            }
+
+            query.Remove(query.Length - 5, 5);
+
+            query.Append(';');
+
+            return query.ToString();
+        }
+
+        public static List<Parametr> GetGostParametrs(string fastenerGost)
         {
             if (!TableExists(gostsDb, fastenerGost))
             {
@@ -69,21 +105,24 @@ namespace FastenersChoosing.Models.DetachableFasteners
                 return null;
             }
 
-            Dictionary<string, List<string>> paramValues = new();
+            List<Parametr> paramValues = new();
             string query = $"SELECT TOP 1 * FROM [{fastenerGost}]";
             OleDbCommand dbCommand = new OleDbCommand(query, gostsDb);
             OleDbDataReader dbReader = dbCommand.ExecuteReader();//Считываем данные
 
             List<string> paramNames = GetListHeaderParams(dbReader);
 
-            foreach(string fieldName in paramNames)
+            foreach (string fieldName in paramNames)
             {
-                paramValues.Add(fieldName, 
-                    GetListFromRequest(gostsDb, $"SELECT distinct [{fieldName}] FROM [{fastenerGost}]", fieldName));
+                string querryString = $"SELECT distinct [{fieldName}] FROM [{fastenerGost}]";
+                List<string> PossibleValues = GetListFromRequest(gostsDb, querryString, fieldName);
+
+                paramValues.Add(new Parametr(fieldName, PossibleValues));
             }
 
             return paramValues;
         }
+
         private static bool TableExists(OleDbConnection connection, string tableName)
         {
             DataTable schema = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, new object[] { null, null, tableName, "TABLE" });
