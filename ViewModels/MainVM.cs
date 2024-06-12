@@ -84,8 +84,8 @@ namespace FastenersChoosing.ViewModels
 
         #region
 
-        private Dictionary<string, List<string>> _gostParametrs;
-        public Dictionary<string, List<string>> GostParametrs 
+        private List<Parametr> _gostParametrs;
+        public List<Parametr> GostParametrs 
         {
             get => _gostParametrs;
             set => Set(ref _gostParametrs, value); 
@@ -101,6 +101,8 @@ namespace FastenersChoosing.ViewModels
         public LambdaCommand SelectedTypeCommand { get; }
         public LambdaCommand SelectedGostCommand { get; }
         public LambdaCommand SelectedAnotherCommand { get; }
+        public LambdaCommand SelectedParametrCommand { get; }
+        public LambdaCommand ClearParametrsCommand { get; }
 
         #endregion
 
@@ -144,6 +146,11 @@ namespace FastenersChoosing.ViewModels
                     else
                         SelectedFastener.Image = Fastener.DefaultImage;
                 });
+            SelectedParametrCommand = new LambdaCommand(
+                (parameter) =>
+                {
+                    DBModel.ModifyListParamsWhere(SelectedFastener.Gost, GostParametrs);
+                });
             SelectedAnotherCommand = new LambdaCommand(
             (newFastener) =>
             {
@@ -155,6 +162,13 @@ namespace FastenersChoosing.ViewModels
                     SelectedTabIndex = 0;
                 }
             });
+
+            ClearParametrsCommand = new LambdaCommand(
+                (obj) =>
+                {
+                    if(GostParametrs != null)
+                        GostParametrs = DBModel.GetGostParametrs(SelectedFastener.Gost);
+                });
         }
 
         public void FillPossibleFasteners(List<string> gosts, List<string> localPaths)

@@ -33,6 +33,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -84,13 +85,21 @@
                             </TextBlock>
                         </Border>
                         <ListView Grid.Row="3" Grid.ColumnSpan="2" Style="{StaticResource ResourceKey=TransparentLV}"
-                                  ItemsSource="{Binding GostParametrs}" Margin="0,15,0,15">
+                                  ItemsSource="{Binding GostParametrs}" Margin="0,15,0,5">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Style="{StaticResource ParamsStyle}" Text="{Binding Key}" 
+                                        <TextBlock Style="{StaticResource ParamsStyle}" Text="{Binding Name}" 
                                                    Margin="5" Width="170" x:Name="justTB"/>
-                                        <ComboBox ItemsSource="{Binding Value}" Width="60" HorizontalAlignment="Right" MaxDropDownHeight="180"/>
+                                        <ComboBox ItemsSource="{Binding ListValues}" SelectedValue="{Binding SelectedValue}"
+                                                  Width="60" HorizontalAlignment="Right" MaxDropDownHeight="180">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="SelectionChanged">
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.SelectedParametrCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                                               CommandParameter="{Binding }"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </ComboBox>
                                     </StackPanel>
                                     <DataTemplate.Triggers>
                                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=IsMouseOver}" Value="True">
@@ -99,9 +108,9 @@
                                     </DataTemplate.Triggers>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
-
                         </ListView>
-                        
+                        <Button Grid.Row="4" Grid.ColumnSpan="2" Height="30" Margin="5" 
+                                Content="Очистить параметры" Command="{Binding ClearParametrsCommand}"/>
                     </Grid>
                     <!--TabItem Изображения и описания изделия-->
                     <TabControl Grid.Row="1" Grid.Column="1" Margin="1" SelectedIndex="{Binding SelectedTabIndex}">
