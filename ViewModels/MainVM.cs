@@ -108,6 +108,8 @@ namespace FastenersChoosing.ViewModels
                 namesTypes = DBModel.GetListFastenersTypes(name.ToString());
             else
                 namesTypes = null;
+
+            ClearParametrsCommand.Execute(null);
         }
 
         #endregion
@@ -125,6 +127,7 @@ namespace FastenersChoosing.ViewModels
                 FillPossibleFasteners(typesGosts, gostsImages[1]);
                 SelectedFastener.Description = DBModel.GetStringDescription(type.ToString());
                 SelectedTabIndex = 1;
+                ClearParametrsCommand.Execute(null);
             }
             else
                 typesGosts = null;
@@ -162,6 +165,7 @@ namespace FastenersChoosing.ViewModels
                 SelectedFastener.Gost = tmp.Gost;
                 SelectedFastener.Image = tmp.Image;
                 SelectedTabIndex = 0;
+                GostParametrs = DBModel.GetGostParametrs(SelectedFastener.Gost.ToString());
             }
         }
 
@@ -173,7 +177,8 @@ namespace FastenersChoosing.ViewModels
 
         private void SelectedParametrMethod(object parameter)
         {
-            DBModel.ModifyListParamsWhere(SelectedFastener.Gost, GostParametrs);
+            if(SelectedFastener.Gost != null)
+                DBModel.ModifyListParamsWhere(SelectedFastener.Gost, GostParametrs);
         }
 
         #endregion
@@ -184,8 +189,10 @@ namespace FastenersChoosing.ViewModels
 
         private void ClearParametrsMethod(object newFastener)
         {
-            if (GostParametrs != null)
+            if (GostParametrs != null && SelectedFastener.Gost != null)
                 GostParametrs = DBModel.GetGostParametrs(SelectedFastener.Gost);
+            else
+                GostParametrs = null;
         }
 
         #endregion
