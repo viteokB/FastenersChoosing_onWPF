@@ -130,8 +130,11 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ListView>
-                        <Button Grid.Row="4" Grid.ColumnSpan="2" Height="30" Margin="5" 
-                                Content="Очистить параметры" Command="{Binding ClearParametrsCommand}"/>
+                        <Button Grid.Row="4" Grid.ColumnSpan="2" Height="40" Margin="5" Foreground="White" FontSize="15"
+                                Template="{StaticResource RoundedButton}" Command="{Binding ClearParametrsCommand}" 
+                                Background="#FF6C00BB" Content="Очистить параметры"> 
+                        </Button>
+
                     </Grid>
                     <!--TabItem Изображения и описания изделия-->
                     <TabControl Grid.Row="1" Grid.Column="1" Margin="1" SelectedIndex="{Binding SelectedTabIndex}">

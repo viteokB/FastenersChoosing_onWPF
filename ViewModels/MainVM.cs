@@ -9,6 +9,7 @@ namespace FastenersChoosing.ViewModels
     public class MainVM : BaseViewModel
     {
         #region Свойства
+
         #region SelectedFastener
         private Fastener _selectedFastener;
         public Fastener SelectedFastener
@@ -20,7 +21,7 @@ namespace FastenersChoosing.ViewModels
 
         #region PossibleFastners
         private ObservableCollection<Fastener> _possibleFastners;
-        public ObservableCollection<Fastener> PossibleFastners 
+        public ObservableCollection<Fastener> PossibleFastners
         {
             get => _possibleFastners;
             set => Set(ref _possibleFastners, value);
@@ -82,27 +83,119 @@ namespace FastenersChoosing.ViewModels
 
         #endregion
 
-        #region
+        #region GostParametrs
 
         private List<Parametr> _gostParametrs;
-        public List<Parametr> GostParametrs 
+        public List<Parametr> GostParametrs
         {
             get => _gostParametrs;
-            set => Set(ref _gostParametrs, value); 
+            set => Set(ref _gostParametrs, value);
         }
 
         #endregion
 
         #endregion
 
-        #region Объявления команд
+        #region Команды
+
+        #region SelectedNameCommand
 
         public LambdaCommand SelectedNameCommand { get; }
+
+        private void SelectedNameMethod(object name)
+        {
+            if (name != null)
+                namesTypes = DBModel.GetListFastenersTypes(name.ToString());
+            else
+                namesTypes = null;
+
+            ClearParametrsCommand.Execute(null);
+        }
+
+        #endregion
+
+        #region SelectedTypeCommand
+
         public LambdaCommand SelectedTypeCommand { get; }
+
+        private void SelectedTypeMethod(object type)
+        {
+            if (type != null)
+            {
+                var gostsImages = DBModel.GetPathAndGost(type.ToString());
+                typesGosts = gostsImages[0];
+                FillPossibleFasteners(typesGosts, gostsImages[1]);
+                SelectedFastener.Description = DBModel.GetStringDescription(type.ToString());
+                SelectedTabIndex = 1;
+                ClearParametrsCommand.Execute(null);
+            }
+            else
+                typesGosts = null;
+        }
+
+        #endregion
+
+        #region SelectedGostCommand
+
         public LambdaCommand SelectedGostCommand { get; }
+
+        private void SelectedGostMethod(object gost)
+        {
+            if (gost != null)
+            {
+                SelectedFastener.Image = SetImage(DBModel.GetStringImagePath(gost.ToString()));
+                SelectedTabIndex = 0;
+                GostParametrs = DBModel.GetGostParametrs(gost.ToString());
+            }
+            else
+                SelectedFastener.Image = Fastener.DefaultImage;
+        }
+
+        #endregion
+
+        #region SelectedAnotherCommand
+
         public LambdaCommand SelectedAnotherCommand { get; }
+
+        private void SelectedAnotherMethod(object newFastener)
+        {
+            if (newFastener != null && SelectedIndex >= 0 && SelectedIndex < PossibleFastners.Count)
+            {
+                var tmp = PossibleFastners[SelectedIndex];
+                SelectedFastener.Gost = tmp.Gost;
+                SelectedFastener.Image = tmp.Image;
+                SelectedTabIndex = 0;
+                GostParametrs = DBModel.GetGostParametrs(SelectedFastener.Gost.ToString());
+            }
+        }
+
+        #endregion
+
+        #region SelectedParametrCommand
+
         public LambdaCommand SelectedParametrCommand { get; }
+
+        private void SelectedParametrMethod(object parameter)
+        {
+            if(SelectedFastener.Gost != null)
+                DBModel.ModifyListParamsWhere(SelectedFastener.Gost, GostParametrs);
+        }
+
+        #endregion
+
+        #region ClearParametrsCommand
+
         public LambdaCommand ClearParametrsCommand { get; }
+
+        private void ClearParametrsMethod(object newFastener)
+        {
+            if (GostParametrs != null && SelectedFastener.Gost != null)
+                GostParametrs = DBModel.GetGostParametrs(SelectedFastener.Gost);
+            else
+                GostParametrs = null;
+        }
+
+        #endregion
 
         #endregion
 
@@ -112,63 +205,12 @@ namespace FastenersChoosing.ViewModels
 
             allNames = DBModel.GetListFastenersNames();
 
-            SelectedNameCommand = new LambdaCommand(
-                (name) =>
-                {
-                    if (name != null)
-                        namesTypes = DBModel.GetListFastenersTypes(name.ToString());
-                    else
-                        namesTypes = null;
-                });
-
-            SelectedTypeCommand = new LambdaCommand(
-                (type) =>
-                {
-                    if (type != null)
-                    {
-                        var gostsImages = DBModel.GetPathAndGost(type.ToString());
-                        typesGosts = gostsImages[0];
-                        FillPossibleFasteners(typesGosts, gostsImages[1]);
-                        SelectedFastener.Description = DBModel.GetStringDescription(type.ToString());
-                        SelectedTabIndex = 1;
-                    }
-                    else
-                        typesGosts = null;
-                });
-            SelectedGostCommand = new LambdaCommand(
-                (gost) =>
-                {
-                    if (gost != null)
-                    {
-                        SelectedFastener.Image = SetImage(DBModel.GetStringImagePath(gost.ToString()));
-                        GostParametrs = DBModel.GetGostParametrs(gost.ToString());
-                    }
-                    else
-                        SelectedFastener.Image = Fastener.DefaultImage;
-                });
-            SelectedParametrCommand = new LambdaCommand(
-                (parameter) =>
-                {
-                    DBModel.ModifyListParamsWhere(SelectedFastener.Gost, GostParametrs);
-                });
-            SelectedAnotherCommand = new LambdaCommand(
-            (newFastener) =>
-            {
-                if (newFastener != null && SelectedIndex >= 0 && SelectedIndex < PossibleFastners.Count)
-                {
-                    var tmp = PossibleFastners[SelectedIndex];
-                    SelectedFastener.Gost = tmp.Gost;
-                    SelectedFastener.Image = tmp.Image;
-                    SelectedTabIndex = 0;
-                }
-            });
-
-            ClearParametrsCommand = new LambdaCommand(
-                (obj) =>
-                {
-                    if(GostParametrs != null)
-                        GostParametrs = DBModel.GetGostParametrs(SelectedFastener.Gost);
-                });
+            SelectedNameCommand = new LambdaCommand(SelectedNameMethod);
+            SelectedTypeCommand = new LambdaCommand(SelectedTypeMethod);
+            SelectedGostCommand = new LambdaCommand(SelectedGostMethod);
+            SelectedParametrCommand = new LambdaCommand(SelectedParametrMethod);
+            SelectedAnotherCommand = new LambdaCommand(SelectedAnotherMethod);
+            ClearParametrsCommand = new LambdaCommand(ClearParametrsMethod);
         }
 
         public void FillPossibleFasteners(List<string> gosts, List<string> localPaths)

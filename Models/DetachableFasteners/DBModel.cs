@@ -1,18 +1,24 @@
-﻿using FastenersChoosing.ViewModels;
-using System.Data;
+﻿using System.Data;
 using System.Data.OleDb;
-using System.Diagnostics;
-using System.IO.Packaging;
-using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Windows;
 
 namespace FastenersChoosing.Models.DetachableFasteners
 {
+    /// <summary>
+    /// Singletone-класс получения запросов из базы данных
+    /// </summary>
     public static class DBModel
     {
+        /// <summary>
+        /// Cтрока подключения базы данных выбора изделий
+        /// </summary>
         private static string connectChoose = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=.\\Data\\ChooseGost.mdb";
         private static OleDbConnection chooseDb;
+
+        /// <summary>
+        /// Cтрока подключения к базе данных с значениями параметров изделий
+        /// </summary>
         private static string connectGosts = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=.\\Data\\GostData.mdb";
         private static OleDbConnection gostsDb;
 
@@ -23,11 +29,21 @@ namespace FastenersChoosing.Models.DetachableFasteners
             gostsDb = new OleDbConnection(connectGosts);
             gostsDb.Open();
         }
+
+        /// <summary>
+        /// Метод получения имен изделий из БД
+        /// </summary>
+        /// <returns>Список всех имен изделия</returns>
         public static List<string> GetListFastenersNames()
         {
             return GetListFromRequest(chooseDb, "SELECT * FROM Fastener", "Fastener");
         }
 
+        /// <summary>
+        /// Метод возвращий список типов изделия для данного имени
+        /// </summary>
+        /// <param name="fastenerName">Имя изделия</param>
+        /// <returns>Список типов изделия для переданного имени</returns>
         public static List<string> GetListFastenersTypes(string fastenerName)
         {
             return GetListFromRequest(chooseDb,
@@ -35,6 +51,11 @@ namespace FastenersChoosing.Models.DetachableFasteners
                 "type");
         }
 
+        /// <summary>
+        /// Метод возвращий список ГОСТов изделия для данного типа изделия
+        /// </summary>
+        /// <param name="fastenerName">Тип изделия</param>
+        /// <returns>Список ГОСТов изделия для переданного типа</returns>
         public static List<string> GetListGostNumbers(string fastenerType)
         {
             return GetListFromRequest(chooseDb,
@@ -42,6 +63,11 @@ namespace FastenersChoosing.Models.DetachableFasteners
                 "Gost");
         }
 
+        /// <summary>
+        /// Возвращает строку описания изделия
+        /// </summary>
+        /// <param name="fastenerType">Тип изделия</param>
+        /// <returns>Строку описания</returns>
         public static string GetStringDescription(string fastenerType)
         {
             return GetStringFromRequest(chooseDb,
@@ -49,6 +75,11 @@ namespace FastenersChoosing.Models.DetachableFasteners
                 "Description");
         }
 
+        /// <summary>
+        /// Метод по получению строки-пути до изображения
+        /// </summary>
+        /// <param name="fastenerGost">Строка-название ГОСТа</param>
+        /// <returns>Строку с относительным путем изображения</returns>
         public static string GetStringImagePath(string fastenerGost)
         {
             return GetStringFromRequest(chooseDb,
@@ -56,6 +87,11 @@ namespace FastenersChoosing.Models.DetachableFasteners
                 "Path");
         }
 
+        /// <summary>
+        /// Возвращает список списков отн. пути до изображения и ГОСТов для типа переданного изделия
+        /// </summary>
+        /// <param name="fastenerType">Строка названия типа переданного изделия</param>типа переданного изделия
+        /// <returns>Список списков отн. пути до изображения и ГОСТов</returns>
         public static List<List<string>> GetPathAndGost(string fastenerType)
         {
             return GetLLStringFromRequest(chooseDb,
@@ -63,6 +99,11 @@ namespace FastenersChoosing.Models.DetachableFasteners
                 "Gost", "Path");
         }
 
+        /// <summary>
+        /// Метод модификации возможных параметров изделия, для уже выбранных значений параметров
+        /// </summary>
+        /// <param name="fromGost">Название таблицы-ГОСТа</param>
+        /// <param name="listParametrs">Список параметров</param>
         public static void ModifyListParamsWhere(string fromGost, List<Parametr> listParametrs)
         {
             if (!TableExists(gostsDb, fromGost))
@@ -80,6 +121,12 @@ namespace FastenersChoosing.Models.DetachableFasteners
             }
         }
 
+        /// <summary>
+        /// Создание последней части строки-запроса, с условиями FROM и WHERE
+        /// </summary>
+        /// <param name="fromGost">Название таблицы-ГОСТа</param>
+        /// <param name="listParametrs">Список параметров</param>
+        /// <returns>Последняя часть строки-запроса, с условиями FROM и WHERE</returns>
         private static string QuerryStringWhere(string fromGost, List<Parametr>  parametrList)
         {
             StringBuilder query = new StringBuilder($" FROM [{fromGost}] WHERE ");
@@ -97,6 +144,11 @@ namespace FastenersChoosing.Models.DetachableFasteners
             return query.ToString();
         }
 
+        /// <summary>
+        /// Метод создает список всех парметров изделия, со всевозможными их значениями
+        /// </summary>
+        /// <param name="fastenerGost">Таблица-ГОСТ</param>
+        /// <returns>Список всех парметров для изделия</returns>
         public static List<Parametr> GetGostParametrs(string fastenerGost)
         {
             if (!TableExists(gostsDb, fastenerGost))
@@ -114,8 +166,8 @@ namespace FastenersChoosing.Models.DetachableFasteners
 
             foreach (string fieldName in paramNames)
             {
-                string querryString = $"SELECT distinct [{fieldName}] FROM [{fastenerGost}]";
-                List<string> PossibleValues = GetListFromRequest(gostsDb, querryString, fieldName);
+                query = $"SELECT distinct [{fieldName}] FROM [{fastenerGost}]";
+                List<string> PossibleValues = GetListFromRequest(gostsDb, query, fieldName);
 
                 paramValues.Add(new Parametr(fieldName, PossibleValues));
             }
@@ -123,12 +175,23 @@ namespace FastenersChoosing.Models.DetachableFasteners
             return paramValues;
         }
 
+        /// <summary>
+        /// Метод проверки существования таблциы
+        /// </summary>
+        /// <param name="connection"></param>
+        /// <param name="tableName"></param>
+        /// <returns>True если существует, иначе false</returns>
         private static bool TableExists(OleDbConnection connection, string tableName)
         {
             DataTable schema = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, new object[] { null, null, tableName, "TABLE" });
             return schema.Rows.Count > 0;
         }
 
+        /// <summary>
+        /// Метод возвращающий список названий строк из заголовока таблицы, всех кроме "Код"
+        /// </summary>
+        /// <param name="oleDbDataReader"></param>
+        /// <returns>Список названий строк из заголовока таблицы</returns>
         private static List<string> GetListHeaderParams(OleDbDataReader oleDbDataReader)
         {
             List<string> result = new List<string>();
@@ -150,6 +213,13 @@ namespace FastenersChoosing.Models.DetachableFasteners
             return result;
         }
 
+        /// <summary>
+        /// Метод для получения списка строк из переданной базы данных, по переданной строке запроса, и полем для чтения
+        /// </summary>
+        /// <param name="DB">Переданная база данных</param>
+        /// <param name="query">Строка запроса</param>
+        /// <param name="readField">Поле для чтения</param>
+        /// <returns>Список строк в результате выполнения запроса</returns>
         private static List<string> GetListFromRequest(OleDbConnection DB, string query, string readField)
         {
             List<string> resultList = new List<string>();
@@ -157,33 +227,46 @@ namespace FastenersChoosing.Models.DetachableFasteners
             OleDbCommand dbCommand = new OleDbCommand(query, DB);
             OleDbDataReader dbReader = dbCommand.ExecuteReader();//Считываем данные
 
-            if (dbReader.HasRows == false)
+            if (CheckHasRows(dbReader))
             {
-                MessageBox.Show($"Ошибка получения данных найдены");
-                return null;
-            }
-            while (dbReader.Read())
-            {
-                resultList.Add(dbReader[readField].ToString());
+                while (dbReader.Read())
+                {
+                    resultList.Add(dbReader[readField].ToString());
+                }
             }
 
             return resultList;
         }
 
+        /// <summary>
+        /// Метод для получения строки из переданной базы данных, по переданной строке запроса, и полем для чтения
+        /// </summary>
+        /// <param name="DB">Переданная база данных</param>
+        /// <param name="query">Строка запроса</param>
+        /// <param name="readField">Поле для чтения</param>
+        /// <returns>Строка в результате выполнения запроса</returns>
         private static string GetStringFromRequest(OleDbConnection DB, string query, string readField)
         {
             OleDbCommand dbCommand = new OleDbCommand(query, DB);
             OleDbDataReader dbReader = dbCommand.ExecuteReader();//Считываем данные
 
-            if (dbReader.HasRows == false || !dbReader.Read())
+            if (!CheckHasRows(dbReader))
             {
-                MessageBox.Show($"Ошибка получения данных найдены");
                 return null;
             }
 
+            dbReader.Read();
             return dbReader[readField].ToString();
         }
 
+        /// <summary>
+        /// Метод для получения списка списков строк из переданной базы данных, 
+        /// по переданной строке запроса, и полем для чтения
+        /// </summary>
+        /// <param name="DB">Переданная база данных</param>
+        /// <param name="query">Строка запроса</param>
+        /// <param name="readField">Поля для чтения</param>
+        /// <returns>Список списков строк в результате выполнения запроса</returns>
         private static List<List<string>> GetLLStringFromRequest(OleDbConnection DB, string query, params string[] readField)
         {
             if (readField.Length == 1)
@@ -207,6 +290,11 @@ namespace FastenersChoosing.Models.DetachableFasteners
             return resultList;
         }
 
+        /// <summary>
+        /// Метод инициализации списка списков строк списками)
+        /// </summary>
+        /// <param name="list">Список списков строкк</param>
+        /// <param name="count">Количество инициализируемых списков</param>
         private static void FillListListsString(ref List<List<string>> list, int count)
         {
             for (int i = 0; i < count; i++)
@@ -215,6 +303,11 @@ namespace FastenersChoosing.Models.DetachableFasteners
             }
         }
 
+        /// <summary>
+        /// Метод проверки наличия строк из полученного запроса к БД
+        /// </summary>
+        /// <param name="dbDataReader"></param>
+        /// <returns>True если строки имеются, иначе false</returns>
         private static bool CheckHasRows(OleDbDataReader dbDataReader)
         {
             if (dbDataReader.HasRows == false)

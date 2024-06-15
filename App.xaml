@@ -8,6 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/TBlocksAndBorders.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/ListViewsStyles.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/ButtonsResource.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
