@@ -57,6 +57,10 @@
                                         <i:InvokeCommandAction Command="{Binding SelectedNameCommand}"
                                         CommandParameter="{Binding SelectedFastener.Name}" />
                                     </i:EventTrigger>
+                                    <i:EventTrigger EventName="MouseEnter">
+                                        <i:InvokeCommandAction Command="{Binding FillItemsCommand}"
+                                                               CommandParameter="{Binding }"/>
+                                    </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </ComboBox>
 

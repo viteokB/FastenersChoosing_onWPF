@@ -197,14 +197,32 @@ namespace FastenersChoosing.ViewModels
 
         #endregion
 
+        #region FillItemsCommand
+
+        public LambdaCommand FillItemsCommand { get; }
+
+        public void FillItemsExucteMethod(object obj)
+        {
+            allNames = DBModel.GetListFastenersNames();
+        }
+
+        public bool FillItemsCanExMethod(object obj)
+        {
+            if(allNames == null || allNames.Count == 0)
+                return true;
+
+            return false;
+        }
+
+        #endregion
+
         #endregion
 
         public MainVM()
         {
             SelectedFastener = new Fastener(SetImage(_standartPath));
 
-            allNames = DBModel.GetListFastenersNames();
-
+            FillItemsCommand = new LambdaCommand(FillItemsExucteMethod, FillItemsCanExMethod);
             SelectedNameCommand = new LambdaCommand(SelectedNameMethod);
             SelectedTypeCommand = new LambdaCommand(SelectedTypeMethod);
             SelectedGostCommand = new LambdaCommand(SelectedGostMethod);
