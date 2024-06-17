@@ -36,7 +36,7 @@ namespace FastenersChoosing.Models.DetachableFasteners
         /// <returns>Список всех имен изделия</returns>
         public static List<string> GetListFastenersNames()
         {
-            return GetListFromRequest(chooseDb, "SELECT * FROM Fastener", "Fastener");
+            return GetListFromRequest(chooseDb, "SELECT * FROM DetachableFasteners", "Название");
         }
 
         /// <summary>
@@ -47,8 +47,11 @@ namespace FastenersChoosing.Models.DetachableFasteners
         public static List<string> GetListFastenersTypes(string fastenerName)
         {
             return GetListFromRequest(chooseDb,
-                $"SELECT type FROM Fasteners_types WHERE Fastener = '{fastenerName}'",
-                "type");
+                $"SELECT Тип " +
+                $" FROM DetachableTypes INNER JOIN DetachableFasteners " +
+                $" ON DetachableTypes.Код_имени = DetachableFasteners.Код " +
+                $" WHERE DetachableFasteners.Название = '{fastenerName}';",
+                "Тип");
         }
 
         /// <summary>
@@ -59,8 +62,11 @@ namespace FastenersChoosing.Models.DetachableFasteners
         public static List<string> GetListGostNumbers(string fastenerType)
         {
             return GetListFromRequest(chooseDb,
-                $"SELECT Gost FROM Fasteners_gosts WHERE type = '{fastenerType}'",
-                "Gost");
+                $" SELECT ГОСТ " +
+                $" FROM DetachableTypes INNER JOIN DetachableGosts " +
+                $" ON DetachableTypes.Код = DetachableGosts.Код_типа " +
+                $" WHERE DetachableTypes.Тип = '{fastenerType}';",
+                "ГОСТ");
         }
 
         /// <summary>
@@ -71,8 +77,10 @@ namespace FastenersChoosing.Models.DetachableFasteners
         public static string GetStringDescription(string fastenerType)
         {
             return GetStringFromRequest(chooseDb,
-                $"SELECT Description FROM Fasteners_types WHERE type = '{fastenerType}'",
-                "Description");
+                $" SELECT Описание " +
+                $" FROM DetachableTypes" +
+                $" WHERE DetachableTypes.Тип = '{fastenerType}';",
+                "Описание");
         }
 
         /// <summary>
@@ -83,8 +91,8 @@ namespace FastenersChoosing.Models.DetachableFasteners
         public static string GetStringImagePath(string fastenerGost)
         {
             return GetStringFromRequest(chooseDb,
-                $"SELECT Path FROM Fasteners_gosts WHERE Gost = '{fastenerGost}'",
-                "Path");
+                $"SELECT Ресурс FROM DetachableGosts WHERE ГОСТ = '{fastenerGost}'",
+                "Ресурс");
         }
 
         /// <summary>
@@ -95,8 +103,11 @@ namespace FastenersChoosing.Models.DetachableFasteners
         public static List<List<string>> GetPathAndGost(string fastenerType)
         {
             return GetLLStringFromRequest(chooseDb,
-                $"SELECT Path, Gost FROM Fasteners_gosts WHERE type = '{fastenerType}'",
-                "Gost", "Path");
+                $" SELECT ГОСТ, Ресурс" +
+                $" FROM DetachableTypes INNER JOIN DetachableGosts " +
+                $" ON DetachableTypes.Код = DetachableGosts.Код_типа " +
+                $" WHERE DetachableTypes.Тип = '{fastenerType}';",
+                "ГОСТ", "Ресурс");
         }
 
         /// <summary>
@@ -127,13 +138,13 @@ namespace FastenersChoosing.Models.DetachableFasteners
         /// <param name="fromGost">Название таблицы-ГОСТа</param>
         /// <param name="listParametrs">Список параметров</param>
         /// <returns>Последняя часть строки-запроса, с условиями FROM и WHERE</returns>
-        private static string QuerryStringWhere(string fromGost, List<Parametr>  parametrList)
+        private static string QuerryStringWhere(string fromGost, List<Parametr> parametrList)
         {
             StringBuilder query = new StringBuilder($" FROM [{fromGost}] WHERE ");
 
             foreach (Parametr parametr in parametrList)
             {
-                if(!String.IsNullOrEmpty(parametr.SelectedValue))
+                if (!String.IsNullOrEmpty(parametr.SelectedValue))
                     query.Append($" [{parametr.Name}] = {parametr.SelectedValue.Replace(',', '.')} AND ");
             }
 
