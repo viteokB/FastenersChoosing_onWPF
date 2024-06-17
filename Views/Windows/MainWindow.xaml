@@ -90,34 +90,33 @@
                         </Border>
                         <ListView Grid.Row="3" Grid.ColumnSpan="2" Style="{StaticResource ResourceKey=TransparentLV}"
                                   ItemsSource="{Binding GostParametrs}" Margin="0,15,0,5">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Style="{StaticResource ParamsStyle}" Text="{Binding Name}" 
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Style="{StaticResource ParamsStyle}" Text="{Binding Name}" 
                                                    Margin="5" Width="170" x:Name="justTB"/>
-                                        <ComboBox ItemsSource="{Binding ListValues}" SelectedValue="{Binding SelectedValue}"
+                                            <ComboBox ItemsSource="{Binding ListValues}" SelectedValue="{Binding SelectedValue}"
                                                   Width="60" HorizontalAlignment="Right" MaxDropDownHeight="180">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="SelectionChanged">
-                                                    <i:InvokeCommandAction Command="{Binding DataContext.SelectedParametrCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="SelectionChanged">
+                                                        <i:InvokeCommandAction Command="{Binding DataContext.SelectedParametrCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
                                                                                CommandParameter="{Binding }"/>
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </ComboBox>
-                                    </StackPanel>
-                                    <DataTemplate.Triggers>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=IsMouseOver}" Value="True">
-                                            <Setter Property="TextElement.Foreground" Value="#FF1F01C3" TargetName="justTB"/>
-                                        </DataTrigger>
-                                    </DataTemplate.Triggers>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ListView>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=IsMouseOver}" Value="True">
+                                                <Setter Property="TextElement.Foreground" Value="#FF1F01C3" TargetName="justTB"/>
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ListView>
                         <Button Grid.Row="4" Grid.ColumnSpan="2" Height="40" Margin="5" Foreground="White" FontSize="15"
                                 Template="{StaticResource RoundedButton}" Command="{Binding ClearParametrsCommand}" 
-                                Background="#FF6C00BB" Content="Очистить параметры"> 
+                                Background="#FF6C00BB" Content="Очистить параметры">
                         </Button>
-
                     </Grid>
                     <!--TabItem Изображения и описания изделия-->
                     <TabControl Grid.Row="1" Grid.Column="1" Margin="1" SelectedIndex="{Binding SelectedTabIndex}">
@@ -146,7 +145,8 @@
                                 </Border>
 
                                 <ListView Grid.Row="3" Background="WhiteSmoke" ItemsSource="{Binding PossibleFastners}"
-                                          SelectedIndex="{Binding SelectedIndex}">
+                                          SelectedIndex="{Binding SelectedIndex}" 
+                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="MouseDoubleClick">
                                             <i:InvokeCommandAction Command="{Binding SelectedAnotherCommand}"
@@ -155,7 +155,7 @@
                                     </i:Interaction.Triggers>
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <UniformGrid Columns="3"/>
+                                            <WrapPanel/>
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
