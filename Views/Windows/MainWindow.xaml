@@ -88,31 +88,11 @@
                                 <Run Text="крепежного изделия"/>
                             </TextBlock>
                         </Border>
-                        <ListView Grid.Row="3" Grid.ColumnSpan="2" Style="{StaticResource ResourceKey=TransparentLV}"
-                                  ItemsSource="{Binding GostParametrs}" Margin="0,15,0,5">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Style="{StaticResource ParamsStyle}" Text="{Binding Name}" 
-                                                   Margin="5" Width="170" x:Name="justTB"/>
-                                            <ComboBox ItemsSource="{Binding ListValues}" SelectedValue="{Binding SelectedValue}"
-                                                  Width="60" HorizontalAlignment="Right" MaxDropDownHeight="180">
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="SelectionChanged">
-                                                        <i:InvokeCommandAction Command="{Binding DataContext.SelectedParametrCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
-                                                                               CommandParameter="{Binding }"/>
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </ComboBox>
-                                        </StackPanel>
-                                        <DataTemplate.Triggers>
-                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=IsMouseOver}" Value="True">
-                                                <Setter Property="TextElement.Foreground" Value="#FF1F01C3" TargetName="justTB"/>
-                                            </DataTrigger>
-                                        </DataTemplate.Triggers>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ListView>
+                        <ListView Grid.Row="3" Grid.ColumnSpan="2" Margin="0,15,0,5"
+                                  Style="{StaticResource ResourceKey=TransparentLV}"
+                                  ItemsSource="{Binding GostParametrs}"
+                                  ItemTemplate="{StaticResource ParamSelTemplate}">
+                        </ListView>
                         <Button Grid.Row="4" Grid.ColumnSpan="2" Height="40" Margin="5" Foreground="White" FontSize="15"
                                 Template="{StaticResource RoundedButton}" Command="{Binding ClearParametrsCommand}" 
                                 Background="#FF6C00BB" Content="Очистить параметры">
@@ -135,15 +115,17 @@
                                 <Border Grid.Row="0" Background="#FF40796B" Style="{StaticResource SomeHeaderBorder}">
                                     <TextBlock Style="{StaticResource SomeHeader}" Text=" Описание изделия"/>
                                 </Border>
+                                
                                 <ScrollViewer Grid.Row="1" Background="WhiteSmoke">
                                     <TextBlock  Margin="10,5,5,5"
                                                  FontSize="16" FontFamily="Times New Roman"
                                                  Text="{Binding SelectedFastener.Description}" TextWrapping="Wrap"/>
                                 </ScrollViewer>
+                                
                                 <Border Grid.Row="2" Background="#FF3B4967" Style="{StaticResource SomeHeaderBorder}">
                                     <TextBlock Style="{StaticResource SomeHeader}" Text="Возможные спецификации данного изделия"/>
                                 </Border>
-
+                                
                                 <ListView Grid.Row="3" Background="WhiteSmoke" ItemsSource="{Binding PossibleFastners}"
                                           SelectedIndex="{Binding SelectedIndex}" 
                                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
@@ -174,6 +156,7 @@
                                         </ToolTip>
                                     </ListView.ToolTip>
                                 </ListView>
+                                
                             </Grid>
                         </TabItem>
                     </TabControl>
@@ -181,7 +164,7 @@
             </TabItem>
             <!--SecondTab-->
             <TabItem Header="Неразъемные соединения">
-
+                
             </TabItem>
         </TabControl>
 
