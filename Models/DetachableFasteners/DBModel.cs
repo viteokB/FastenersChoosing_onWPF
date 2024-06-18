@@ -8,7 +8,7 @@ namespace FastenersChoosing.Models.DetachableFasteners
     /// <summary>
     /// Singletone-класс получения запросов из базы данных
     /// </summary>
-    public static class DBModel
+    public static partial class DBModel
     {
         /// <summary>
         /// Cтрока подключения базы данных выбора изделий
