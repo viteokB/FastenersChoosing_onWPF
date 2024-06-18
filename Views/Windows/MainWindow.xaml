@@ -16,6 +16,9 @@
         <TabControl FontSize="13">
             <!--FirstTab-->
             <TabItem Header="Разъемные соединения">
+                <TabItem.DataContext>
+                    <vm:DetachableVM/>
+                </TabItem.DataContext>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="260"/>
@@ -164,7 +167,51 @@
             </TabItem>
             <!--SecondTab-->
             <TabItem Header="Неразъемные соединения">
-                
+                <TabItem.DataContext>
+                    <vm:UnDetachableVM/>
+                </TabItem.DataContext>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="190"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush StartPoint="0.5, 0" EndPoint="0.5, 1">
+                            <GradientStop Color="#FF2A1C45" Offset="0"/>
+                            <GradientStop Color="#FF262C5F" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Border Margin="5,5,5,0" BorderThickness="1"
+                            Background="#22202f" BorderBrush="Blue">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
+                               Foreground="White" FontSize="20">
+                        <Run Text="Соединение"/>
+                        </TextBlock>
+                    </Border>
+                    <StackPanel Grid.Row="1" Grid.Column="0" Margin="5,0,5,5">
+                        <RadioButton Content="Сварное" Height="50" 
+                                         FontSize="16" Foreground="White"
+                                         Style="{StaticResource MenuButtonTheme}"/>
+                        <RadioButton Content="Клееное" Height="50"
+                                         FontSize="16" Foreground="White"
+                                         Style="{StaticResource MenuButtonTheme}"/>
+                        <RadioButton Content="Клепаное" Height="50"
+                                         FontSize="16" Foreground="White"
+                                         Style="{StaticResource MenuButtonTheme}"/>
+                        <RadioButton Content="Паяное" Height="50" 
+                                         FontSize="16" Foreground="White"
+                                         Style="{StaticResource MenuButtonTheme}"/>
+                    </StackPanel>
+                    <Frame Grid.Row="0" Grid.Column="1" 
+                           Grid.RowSpan="3">
+                        
+                    </Frame>
+                </Grid>
             </TabItem>
         </TabControl>
 

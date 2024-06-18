@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="Resources/Styles/ListViewsResources.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/ButtonsResource.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/ListViewsResources.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/MenuButtonTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
