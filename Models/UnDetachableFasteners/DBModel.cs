@@ -22,7 +22,7 @@ namespace FastenersChoosing.Models.DetachableFasteners
                 $" FROM UnDetachableTypes INNER JOIN UnDetachableFasteners " +
                 $" ON UnDetachableTypes.Код_Соединения = UnDetachableFasteners.Код " +
                 $" WHERE UnDetachableFasteners.Соединение = '{unDetachName}';",
-                "Тип");
+                "Тип_соединения");
         }
 
         public static string GetUnDetachDescription(string unDetachType)
@@ -32,6 +32,16 @@ namespace FastenersChoosing.Models.DetachableFasteners
                 $" FROM UnDetachableTypes" +
                 $" WHERE UnDetachableTypes.Тип_соединения = '{unDetachType}';",
                 "Описание");
+        }
+
+        public static List<string> GetListSubtype(string unDetachType)
+        {
+            return GetListFromRequest(chooseDb,
+                $" SELECT Подтип_соединения" +
+                $" FROM UnDetachableTypes INNER JOIN UnDetachableSubtypes " +
+                $" ON UnDetachableTypes.Код = UnDetachableSubtypes.Код_типа " +
+                $" WHERE UnDetachableTypes.Тип_соединения = '{unDetachType}';",
+                "Подтип_соединения");
         }
 
         public static List<List<string>> GetResourceAndSubtype(string unDetachType)

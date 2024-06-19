@@ -3,15 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:FastenersChoosing.ViewModels"
         xmlns:fm="clr-namespace:FastenersChoosing.Models.DetachableFasteners"
+        xmlns:vm="clr-namespace:FastenersChoosing.ViewModels"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:FastenersChoosing"
         mc:Ignorable="d"
-        Title="Проект: ''Подбор Крепежных изделий''" Height="570" Width="800">
-    <Window.DataContext>
-        <vm:MainVM/>
-    </Window.DataContext>
+        ResizeMode="NoResize"
+        Title="Проект: ''Подбор Крепежных изделий''" Height="620" Width="836">
     <Grid>
         <TabControl FontSize="13">
             <!--FirstTab-->
@@ -172,13 +170,11 @@
                 </TabItem.DataContext>
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="190"/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.Background>
                         <LinearGradientBrush StartPoint="0.5, 0" EndPoint="0.5, 1">
@@ -186,31 +182,26 @@
                             <GradientStop Color="#FF262C5F" Offset="1"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <Border Margin="5,5,5,0" BorderThickness="1"
-                            Background="#22202f" BorderBrush="Blue">
-                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
-                               Foreground="White" FontSize="20">
-                        <Run Text="Соединение"/>
-                        </TextBlock>
-                    </Border>
-                    <StackPanel Grid.Row="1" Grid.Column="0" Margin="5,0,5,5">
-                        <RadioButton Content="Сварное" Height="50" 
-                                         FontSize="16" Foreground="White"
+                    <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
+                                Margin="5,0,5,5" Orientation="Horizontal">
+                        <RadioButton Content="Сварное" Height="40" Width="145"
+                                         FontSize="22" Foreground="White" IsChecked="True"
                                          Style="{StaticResource MenuButtonTheme}"/>
-                        <RadioButton Content="Клееное" Height="50"
-                                         FontSize="16" Foreground="White"
+                        <RadioButton Content="Клееное" Height="40" Width="145"
+                                         FontSize="22" Foreground="White"
                                          Style="{StaticResource MenuButtonTheme}"/>
-                        <RadioButton Content="Клепаное" Height="50"
-                                         FontSize="16" Foreground="White"
+                        <RadioButton Content="Клепаное" Height="40" Width="145"
+                                         FontSize="22" Foreground="White"
                                          Style="{StaticResource MenuButtonTheme}"/>
-                        <RadioButton Content="Паяное" Height="50" 
-                                         FontSize="16" Foreground="White"
+                        <RadioButton Content="Паяное" Height="40" Width="145"
+                                         FontSize="22" Foreground="White"
+                                         Style="{StaticResource MenuButtonTheme}"/>
+                        <RadioButton Content="Заформованное" Height="40" Width="205"
+                                         FontSize="22" Foreground="White"
                                          Style="{StaticResource MenuButtonTheme}"/>
                     </StackPanel>
-                    <Frame Grid.Row="0" Grid.Column="1" 
-                           Grid.RowSpan="3">
-                        
-                    </Frame>
+                    <ContentControl Grid.Row="1" Grid.Column="0"
+                                    Grid.RowSpan="3" Content="{Binding CurrentView}"/>
                 </Grid>
             </TabItem>
         </TabControl>
