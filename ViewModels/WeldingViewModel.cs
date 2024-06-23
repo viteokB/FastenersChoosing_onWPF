@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Security.RightsManagement;
 using System.Text;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using FastenersChoosing.Infrastructure.Commands;
 using FastenersChoosing.Models.DetachableFasteners;
+using FastenersChoosing.Models.UnDetachableFasteners;
 
 namespace FastenersChoosing.ViewModels
 {
@@ -90,6 +92,8 @@ namespace FastenersChoosing.ViewModels
 
         #endregion
 
+        public WeldingCalculations WeldingCalculations { get; set; }
+
         #endregion
 
         #region Команды
@@ -132,6 +136,8 @@ namespace FastenersChoosing.ViewModels
             SelectedTypeCommand = new(SelectedTypeMethod);
 
             SelectedSubTypeCommand = new(SelectedSubTypeMethod);
+
+            WeldingCalculations = new WeldingCalculations();
         }
     }
 }

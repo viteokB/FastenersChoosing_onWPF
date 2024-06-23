@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="Resources/Styles/ButtonsResource.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/ListViewsResources.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/MenuButtonTheme.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/SelectCalculatedLetter.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type viewModel:WeldingViewModel}">
                 <view:WeldingView/>
