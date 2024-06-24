@@ -1,13 +1,14 @@
 ﻿using FastenersChoosing.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FastenersChoosing.Models.UnDetachableFasteners.GluedCalculations
 {
-    public class NeededForceCalculation : BaseViewModel
+    public class NeededForceCalculation : BaseViewModel, IDataErrorInfo
     {
         #region A
 
@@ -112,7 +113,7 @@ namespace FastenersChoosing.Models.UnDetachableFasteners.GluedCalculations
         {
             if (FHasValue && AHasValue)
             {
-                Set(ref _p, Double.Round(F * A, 4), "A");
+                Set(ref _p, Double.Round(F * A, 4), "P");
             }
         }
 

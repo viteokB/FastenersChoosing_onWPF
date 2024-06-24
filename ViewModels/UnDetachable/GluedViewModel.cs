@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using FastenersChoosing.Models.UnDetachableFasteners.GluedCalculations;
 
 namespace FastenersChoosing.ViewModels.UnDetachable
 {
@@ -69,9 +70,13 @@ namespace FastenersChoosing.ViewModels.UnDetachable
 
         #endregion
 
-        //public WeldingSigma WeldingSigma { get; set; }
+        #region Расчеты
 
-        //public WeldingSrez WeldingSrez { get; set; }
+        public NeededForceCalculation ForceCalculation { get; set; }
+
+        public ThicknessCalculation ThicknessCalculation { get; set; }
+
+        #endregion
 
         #endregion
 
@@ -100,9 +105,9 @@ namespace FastenersChoosing.ViewModels.UnDetachable
 
             SelectedTypeCommand = new(SelectedTypeMethod);
 
-            //WeldingSigma = new();
+            ForceCalculation = new();
 
-            //WeldingSrez = new();
+            ThicknessCalculation = new();
         }
     }
 }

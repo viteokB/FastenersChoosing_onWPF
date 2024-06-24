@@ -77,7 +77,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Расчеты сварных соединений:" FontSize="16"
+            <TextBlock Text="Необходимая сила сцепления клея:" FontSize="16"
                        Style="{StaticResource SomeHeader}" HorizontalAlignment="Left"/>
             <Grid Grid.Row="1">
                 <TextBlock Text="F = " HorizontalAlignment="Left" 
@@ -106,17 +106,17 @@
                 </Grid.ColumnDefinitions>
                 <RadioButton Template="{StaticResource SelectLetter}" Margin="4"
                              Grid.Row="0" Grid.Column="0" Content="F =" 
-                             IsChecked="{Binding WeldingSigma.CalcForce}"/>
+                             IsChecked="{Binding ForceCalculation.CalcForce}"/>
                 <RadioButton Grid.Row="1" Grid.Column="0" Margin="4"
                              Template="{StaticResource SelectLetter}" Content="P ="
-                             IsChecked="{Binding WeldingSigma.CalcSquare}"/>
+                             IsChecked="{Binding ForceCalculation.CalcP}"/>
                 <RadioButton Grid.Row="2" Grid.Column="0" Margin="4"
                              Template="{StaticResource SelectLetter}" Content="A ="
-                             IsChecked="{Binding WeldingSigma.CalcLength}"/>
+                             IsChecked="{Binding ForceCalculation.CalcA}"/>
 
                 <TextBox Grid.Row="0" Grid.Column="1" Margin="0,5,0,5">
                     <TextBox.Text>
-                        <Binding Path="WeldingSigma.Force">
+                        <Binding Path="ForceCalculation.F">
                             <Binding.ValidationRules>
                                 <DataErrorValidationRule />
                             </Binding.ValidationRules>
@@ -125,7 +125,7 @@
                 </TextBox>
                 <TextBox Grid.Row="1" Grid.Column="1" Margin="0,5,0,5">
                     <TextBox.Text>
-                        <Binding Path="WeldingSigma.Square">
+                        <Binding Path="ForceCalculation.P">
                             <Binding.ValidationRules>
                                 <DataErrorValidationRule />
                             </Binding.ValidationRules>
@@ -134,7 +134,7 @@
                 </TextBox>
                 <TextBox Grid.Row="2" Grid.Column="1" Margin="0,5,0,5">
                     <TextBox.Text>
-                        <Binding Path="WeldingSigma.Length">
+                        <Binding Path="ForceCalculation.A">
                             <Binding.ValidationRules>
                                 <DataErrorValidationRule />
                             </Binding.ValidationRules>
@@ -159,7 +159,7 @@
             </Grid.RowDefinitions>
             <TextBlock HorizontalAlignment="Left"
                        Style="{StaticResource SomeHeader}">
-                <Run Text="Условие прочности стыковых швов"/>
+                <Run Text="Расчет толщины клеевого слоя:"/>
             </TextBlock>
 
             <Grid Grid.Row="1">
@@ -186,19 +186,19 @@
                 </Grid.ColumnDefinitions>
                 <RadioButton Template="{StaticResource SelectLetter}" Margin="4"
                              Grid.Row="0" Grid.Column="0" Content="V ="
-                             IsChecked="{Binding WeldingSrez.CalcForce}"/>
+                             IsChecked="{Binding ThicknessCalculation.CalcV}"/>
                 <RadioButton Template="{StaticResource SelectLetter}" Margin="4"
                              Grid.Row="1" Grid.Column="0" Content="A ="
-                             IsChecked="{Binding WeldingSrez.CalcK}"/>
+                             IsChecked="{Binding ThicknessCalculation.CalcA}"/>
                 <RadioButton Template="{StaticResource SelectLetter}" Margin="4"
                              Grid.Row="2" Grid.Column="0" Content="ρ ="
-                             IsChecked="{Binding WeldingSrez.CalcLength}"/>
+                             IsChecked="{Binding ThicknessCalculation.CalcP}"/>
                 <RadioButton Template="{StaticResource SelectLetter}" Margin="4"
                              Grid.Row="3" Grid.Column="0" Content="&#964; ="
-                             IsChecked="{Binding WeldingSrez.CalcT}"/>
+                             IsChecked="{Binding ThicknessCalculation.CalcT}"/>
                 <TextBox Grid.Row="0" Grid.Column="1" Margin="0,5,0,5">
                     <TextBox.Text>
-                        <Binding Path="WeldingSrez.Force">
+                        <Binding Path="ThicknessCalculation.V">
                             <Binding.ValidationRules>
                                 <DataErrorValidationRule />
                             </Binding.ValidationRules>
@@ -207,7 +207,7 @@
                 </TextBox>
                 <TextBox Grid.Row="1" Grid.Column="1" Margin="0,5,0,5">
                     <TextBox.Text>
-                        <Binding Path="WeldingSrez.K">
+                        <Binding Path="ThicknessCalculation.A">
                             <Binding.ValidationRules>
                                 <DataErrorValidationRule />
                             </Binding.ValidationRules>
@@ -216,7 +216,7 @@
                 </TextBox>
                 <TextBox Grid.Row="2" Grid.Column="1" Margin="0,5,0,5">
                     <TextBox.Text>
-                        <Binding Path="WeldingSrez.Length">
+                        <Binding Path="ThicknessCalculation.P">
                             <Binding.ValidationRules>
                                 <DataErrorValidationRule />
                             </Binding.ValidationRules>
@@ -225,7 +225,7 @@
                 </TextBox>
                 <TextBox Grid.Row="3" Grid.Column="1" Margin="0,5,0,5">
                     <TextBox.Text>
-                        <Binding Path="WeldingSrez.T">
+                        <Binding Path="ThicknessCalculation.T">
                             <Binding.ValidationRules>
                                 <DataErrorValidationRule />
                             </Binding.ValidationRules>

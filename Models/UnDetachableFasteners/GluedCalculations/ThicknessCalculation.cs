@@ -1,13 +1,14 @@
 ﻿using FastenersChoosing.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FastenersChoosing.Models.UnDetachableFasteners.GluedCalculations
 {
-    public class ThicknessCalculation : BaseViewModel
+    public class ThicknessCalculation : BaseViewModel, IDataErrorInfo
     {
         #region T
 
