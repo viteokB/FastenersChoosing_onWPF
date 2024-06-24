@@ -2,7 +2,7 @@
 using FastenersChoosing.Models.DetachableFasteners;
 using System.Collections.ObjectModel;
 
-namespace FastenersChoosing.ViewModels
+namespace FastenersChoosing.ViewModels.Detachable
 {
     public class DetachableVM : BaseViewModel
     {

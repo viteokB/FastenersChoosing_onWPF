@@ -11,7 +11,7 @@ using FastenersChoosing.Models.DetachableFasteners;
 using FastenersChoosing.Models.UnDetachableFasteners;
 using FastenersChoosing.Models.UnDetachableFasteners.WeldingCalculations;
 
-namespace FastenersChoosing.ViewModels
+namespace FastenersChoosing.ViewModels.UnDetachable
 {
     public class WeldingViewModel : BaseViewModel
     {

@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fm="clr-namespace:FastenersChoosing.Models.DetachableFasteners"
-        xmlns:vm="clr-namespace:FastenersChoosing.ViewModels"
+        xmlns:detvm="clr-namespace:FastenersChoosing.ViewModels.Detachable"
+        xmlns:undetvm="clr-namespace:FastenersChoosing.ViewModels.UnDetachable"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:FastenersChoosing"
         mc:Ignorable="d"
@@ -15,7 +16,7 @@
             <!--FirstTab-->
             <TabItem Header="Разъемные соединения">
                 <TabItem.DataContext>
-                    <vm:DetachableVM/>
+                    <detvm:DetachableVM/>
                 </TabItem.DataContext>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -166,7 +167,7 @@
             <!--SecondTab-->
             <TabItem Header="Неразъемные соединения">
                 <TabItem.DataContext>
-                    <vm:UnDetachableVM/>
+                    <undetvm:UnDetachableVM/>
                 </TabItem.DataContext>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -185,20 +186,22 @@
                     <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
                                 Margin="5,0,5,5" Orientation="Horizontal">
                         <RadioButton Content="Сварное" Height="40" Width="145"
-                                         FontSize="22" Foreground="White" IsChecked="True"
-                                         Style="{StaticResource MenuButtonTheme}"/>
+                                     FontSize="22" Foreground="White" 
+                                     IsChecked="{Binding IsCheckedWelding}"
+                                     Style="{StaticResource MenuButtonTheme}"/>
                         <RadioButton Content="Клееное" Height="40" Width="145"
-                                         FontSize="22" Foreground="White"
-                                         Style="{StaticResource MenuButtonTheme}"/>
+                                     FontSize="22" Foreground="White"
+                                     IsChecked="{Binding IsCheckedGlueing}"
+                                     Style="{StaticResource MenuButtonTheme}"/>
                         <RadioButton Content="Клепаное" Height="40" Width="145"
-                                         FontSize="22" Foreground="White"
-                                         Style="{StaticResource MenuButtonTheme}"/>
+                                     FontSize="22" Foreground="White"
+                                     Style="{StaticResource MenuButtonTheme}"/>
                         <RadioButton Content="Паяное" Height="40" Width="145"
-                                         FontSize="22" Foreground="White"
-                                         Style="{StaticResource MenuButtonTheme}"/>
+                                     FontSize="22" Foreground="White"
+                                     Style="{StaticResource MenuButtonTheme}"/>
                         <RadioButton Content="Заформованное" Height="40" Width="205"
-                                         FontSize="22" Foreground="White"
-                                         Style="{StaticResource MenuButtonTheme}"/>
+                                     FontSize="22" Foreground="White"
+                                     Style="{StaticResource MenuButtonTheme}"/>
                     </StackPanel>
                     <ContentControl Grid.Row="1" Grid.Column="0"
                                     Grid.RowSpan="3" Content="{Binding CurrentView}"/>

@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:FastenersChoosing"
-             xmlns:viewModel="clr-namespace:FastenersChoosing.ViewModels"
+             xmlns:undetvm="clr-namespace:FastenersChoosing.ViewModels.UnDetachable"
+             xmlns:detvm="clr-namespace:FastenersChoosing.ViewModels.Detachable"
              xmlns:view="clr-namespace:FastenersChoosing.Views.UserControls"
              StartupUri="Views\Windows\MainWindow.xaml">
     <Application.Resources>
@@ -15,8 +16,11 @@
                 <ResourceDictionary Source="Resources/Styles/MenuButtonTheme.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/SelectCalculatedLetter.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <DataTemplate DataType="{x:Type viewModel:WeldingViewModel}">
+            <DataTemplate DataType="{x:Type undetvm:WeldingViewModel}">
                 <view:WeldingView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type undetvm:GluedViewModel}">
+                <view:GluedView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
