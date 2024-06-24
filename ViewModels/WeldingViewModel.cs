@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using FastenersChoosing.Infrastructure.Commands;
 using FastenersChoosing.Models.DetachableFasteners;
 using FastenersChoosing.Models.UnDetachableFasteners;
+using FastenersChoosing.Models.UnDetachableFasteners.WeldingCalculations;
 
 namespace FastenersChoosing.ViewModels
 {
@@ -92,7 +93,9 @@ namespace FastenersChoosing.ViewModels
 
         #endregion
 
-        public WeldingCalculations WeldingCalculations { get; set; }
+        public WeldingSigma WeldingSigma { get; set; }
+
+        public WeldingSrez WeldingSrez { get; set; }
 
         #endregion
 
@@ -137,7 +140,9 @@ namespace FastenersChoosing.ViewModels
 
             SelectedSubTypeCommand = new(SelectedSubTypeMethod);
 
-            WeldingCalculations = new WeldingCalculations();
+            WeldingSigma = new();
+
+            WeldingSrez = new();
         }
     }
 }

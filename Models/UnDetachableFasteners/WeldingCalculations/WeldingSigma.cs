@@ -10,7 +10,7 @@ using System.Windows.Controls;
 
 namespace FastenersChoosing.Models.UnDetachableFasteners
 {
-    public class WeldingCalculations : BaseViewModel, IDataErrorInfo
+    public class WeldingSigma : BaseViewModel, IDataErrorInfo
     {
         #region Sigma
 
@@ -86,7 +86,7 @@ namespace FastenersChoosing.Models.UnDetachableFasteners
         #region Свойства выбора RadioButton
 
         private bool _calcForce;
-        public bool CalcForce 
+        public bool CalcForce
         {
             get => _calcForce;
             set
@@ -131,7 +131,7 @@ namespace FastenersChoosing.Models.UnDetachableFasteners
 
         #endregion
 
-        public WeldingCalculations()
+        public WeldingSigma()
         {
             CalcSigma = true;
         }
@@ -146,7 +146,7 @@ namespace FastenersChoosing.Models.UnDetachableFasteners
         {
             if (ForceHasValue && SquareHasValue && LengthHasValue)
             {
-                Set(ref _sigma, Force / (Square * Length), "Sigma");
+                Set(ref _sigma, Double.Round(Force / (Square * Length), 4), "Sigma");
             }
         }
 
@@ -154,7 +154,7 @@ namespace FastenersChoosing.Models.UnDetachableFasteners
         {
             if (SigmaHasValue && SquareHasValue && LengthHasValue)
             {
-                Set(ref _force, Sigma * Square * Length, "Force");
+                Set(ref _force, Double.Round(Sigma * Square * Length, 4), "Force");
             }
         }
 
@@ -162,7 +162,7 @@ namespace FastenersChoosing.Models.UnDetachableFasteners
         {
             if (SigmaHasValue && ForceHasValue && SquareHasValue)
             {
-                Set(ref _length, Force / (Sigma * Square), "Length");
+                Set(ref _length, Double.Round(Force / (Sigma * Square), 4), "Length");
             }
         }
 
@@ -170,7 +170,7 @@ namespace FastenersChoosing.Models.UnDetachableFasteners
         {
             if (SigmaHasValue && ForceHasValue && LengthHasValue)
             {
-                Set(ref _square, Force / (Sigma * Length), "Square");
+                Set(ref _square, Double.Round(Force / (Sigma * Length), 4), "Square");
             }
         }
 
@@ -195,11 +195,11 @@ namespace FastenersChoosing.Models.UnDetachableFasteners
                         CheckValidation(Square, ref SquareHasValue, ref error);
                         break;
                     case "Force":
-                        CheckValidation(Force,ref  ForceHasValue, ref error);
+                        CheckValidation(Force, ref ForceHasValue, ref error);
                         break;
                     case "Sigma":
-                        CheckValidation(Sigma, ref  SigmaHasValue, ref error);
-                        break; 
+                        CheckValidation(Sigma, ref SigmaHasValue, ref error);
+                        break;
                 }
 
                 Calculate.Invoke();

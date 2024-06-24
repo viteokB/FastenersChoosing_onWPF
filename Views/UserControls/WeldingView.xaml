@@ -98,10 +98,10 @@
                        Style="{StaticResource SomeHeader}" HorizontalAlignment="Left"/>
             <Grid Grid.Row="1">
                 <TextBlock Text="&#963;&#8346; = " HorizontalAlignment="Left" 
-                       Margin="49,23,0,0" VerticalAlignment="Top"
+                       Margin="54,0,0,0" VerticalAlignment="Center"
                        Style="{StaticResource SomeHeader}" FontSize="20"/>
                 <TextBlock HorizontalAlignment="Left" 
-                       Margin="96,10,0,0" VerticalAlignment="Top"
+                       Margin="96,0,0,0" VerticalAlignment="Top"
                        Style="{StaticResource SomeHeader}" FontSize="20">
                     <Run Text="   F   "/><LineBreak/>
                     <Run Text="--------------------------------" 
@@ -109,10 +109,10 @@
                     <Run Text="S * L"/>
                 </TextBlock>
                 <TextBlock Text="&#8804; = " HorizontalAlignment="Left" 
-                           Margin="145,23,0,0" VerticalAlignment="Top"
+                           Margin="147,0,0,0" VerticalAlignment="Center"
                            Style="{StaticResource SomeHeader}" FontSize="20"/>
                 <TextBlock Text="[ &#963;&#8346; ]" HorizontalAlignment="Left" 
-                           Margin="186,23,0,0" VerticalAlignment="Top"
+                           Margin="186,0,0,0" VerticalAlignment="Center"
                            Style="{StaticResource SomeHeader}" FontSize="20"/>
             </Grid>
             <Grid Grid.Row="2">
@@ -124,25 +124,25 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="70"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <RadioButton Template="{StaticResource SelectLetter}" Margin="4"
                              Grid.Row="0" Grid.Column="0" Content="F =" 
-                             IsChecked="{Binding WeldingCalculations.CalcForce}"/>
+                             IsChecked="{Binding WeldingSigma.CalcForce}"/>
                 <RadioButton Grid.Row="1" Grid.Column="0" Margin="4"
                              Template="{StaticResource SelectLetter}" Content="S ="
-                             IsChecked="{Binding WeldingCalculations.CalcSquare}"/>
+                             IsChecked="{Binding WeldingSigma.CalcSquare}"/>
                 <RadioButton Grid.Row="2" Grid.Column="0" Margin="4"
                              Template="{StaticResource SelectLetter}" Content="L ="
-                             IsChecked="{Binding WeldingCalculations.CalcLength}"/>
+                             IsChecked="{Binding WeldingSigma.CalcLength}"/>
                 <RadioButton Grid.Row="3" Grid.Column="0" Margin="4"
-                             IsChecked="{Binding WeldingCalculations.CalcSigma}"
+                             IsChecked="{Binding WeldingSigma.CalcSigma}"
                              Template="{StaticResource SelectLetter}" Content="&#963;&#8346; ="/>
 
                 <TextBox Grid.Row="0" Grid.Column="1" Margin="0,5,0,5">
                     <TextBox.Text>
-                        <Binding Path="WeldingCalculations.Force">
+                        <Binding Path="WeldingSigma.Force">
                             <Binding.ValidationRules>
                                 <DataErrorValidationRule />
                             </Binding.ValidationRules>
@@ -151,7 +151,7 @@
                 </TextBox>
                 <TextBox Grid.Row="1" Grid.Column="1" Margin="0,5,0,5">
                     <TextBox.Text>
-                        <Binding Path="WeldingCalculations.Square">
+                        <Binding Path="WeldingSigma.Square">
                             <Binding.ValidationRules>
                                 <DataErrorValidationRule />
                             </Binding.ValidationRules>
@@ -160,7 +160,7 @@
                 </TextBox>
                 <TextBox Grid.Row="2" Grid.Column="1" Margin="0,5,0,5">
                     <TextBox.Text>
-                        <Binding Path="WeldingCalculations.Length">
+                        <Binding Path="WeldingSigma.Length">
                             <Binding.ValidationRules>
                                 <DataErrorValidationRule />
                             </Binding.ValidationRules>
@@ -169,7 +169,7 @@
                 </TextBox>
                 <TextBox Grid.Row="3" Grid.Column="1" Margin="0,5,0,5">
                     <TextBox.Text>
-                        <Binding Path="WeldingCalculations.Sigma">
+                        <Binding Path="WeldingSigma.Sigma">
                             <Binding.ValidationRules>
                                 <DataErrorValidationRule />
                             </Binding.ValidationRules>
@@ -184,7 +184,7 @@
                 <TextBlock Grid.Row="2" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
                            Text="мм" Style="{StaticResource SomeHeader}"/>
                 <TextBlock Grid.Row="3" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
-                           Text="(хз в чем)" Style="{StaticResource SomeHeader}"/>
+                           Text="Н / мм&#178;" Style="{StaticResource SomeHeader}"/>
             </Grid>
         </Grid>
 
@@ -225,35 +225,66 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="70"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top"
-                            Grid.Row="0" Grid.Column="0" Style="{StaticResource SomeHeader}" 
-                            Text="F ="/>
-
-                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top"
-                            Grid.Row="1" Grid.Column="0" Style="{StaticResource SomeHeader}" 
-                            Text="K ="/>
-                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top"
-                            Grid.Row="2" Grid.Column="0" Style="{StaticResource SomeHeader}" 
-                            Text="L ="/>
-                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top"
-                            Grid.Row="3" Grid.Column="0" Style="{StaticResource SomeHeader}" 
-                            Text="&#964;&#8346; ="/>
-                <TextBox Grid.Row="0" Grid.Column="1" Margin="0,5,0,5"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Margin="0,5,0,5"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Margin="0,5,0,5"/>
-                <TextBox Grid.Row="3" Grid.Column="1" Margin="0,5,0,5"/>
+                <RadioButton Template="{StaticResource SelectLetter}" Margin="4"
+                             Grid.Row="0" Grid.Column="0" Content="F ="
+                             IsChecked="{Binding WeldingSrez.CalcForce}"/>
+                <RadioButton Template="{StaticResource SelectLetter}" Margin="4"
+                             Grid.Row="1" Grid.Column="0" Content="K ="
+                             IsChecked="{Binding WeldingSrez.CalcK}"/>
+                <RadioButton Template="{StaticResource SelectLetter}" Margin="4"
+                             Grid.Row="2" Grid.Column="0" Content="L ="
+                             IsChecked="{Binding WeldingSrez.CalcLength}"/>
+                <RadioButton Template="{StaticResource SelectLetter}" Margin="4"
+                             Grid.Row="3" Grid.Column="0" Content="&#964;&#8346; ="
+                             IsChecked="{Binding WeldingSrez.CalcT}"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Margin="0,5,0,5">
+                    <TextBox.Text>
+                        <Binding Path="WeldingSrez.Force">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox Grid.Row="1" Grid.Column="1" Margin="0,5,0,5">
+                    <TextBox.Text>
+                        <Binding Path="WeldingSrez.K">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox Grid.Row="2" Grid.Column="1" Margin="0,5,0,5">
+                    <TextBox.Text>
+                        <Binding Path="WeldingSrez.Length">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox Grid.Row="3" Grid.Column="1" Margin="0,5,0,5">
+                    <TextBox.Text>
+                        <Binding Path="WeldingSrez.T">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
 
                 <TextBlock Grid.Row="0" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
                             Text="H" Style="{StaticResource SomeHeader}"/>
                 <TextBlock Grid.Row="1" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
-                            Text="м&#178;" Style="{StaticResource SomeHeader}"/>
+                            Text="мм&#178;" Style="{StaticResource SomeHeader}"/>
                 <TextBlock Grid.Row="2" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
-                            Text="м" Style="{StaticResource SomeHeader}"/>
+                            Text="мм" Style="{StaticResource SomeHeader}"/>
                 <TextBlock Grid.Row="3" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
-                            Text="(хз в чем)" Style="{StaticResource SomeHeader}"/>
+                            Text="Н / мм&#178;" Style="{StaticResource SomeHeader}"/>
             </Grid>
         </Grid>
     </Grid>

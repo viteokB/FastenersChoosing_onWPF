@@ -163,6 +163,7 @@ namespace FastenersChoosing.ViewModels
                 SelectedFastener.Gost = tmp.Gost;
                 SelectedFastener.Image = tmp.Image;
                 GostParametrs = DBModel.GetGostParametrs(SelectedFastener.Gost.ToString());
+                SelectedTabIndex = 0;
             }
         }
 

@@ -14,14 +14,14 @@
                             FontFamily="Microsoft Sans Serif"
                             FontSize="16"
                             Foreground="White">
-                
             </ContentControl>
-
         </Border>
+        
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="FontWeight" Value="Bold"/>
-                <Setter TargetName="toogleBorder" Property="BorderBrush" Value="White" />
+                <Setter TargetName="toogleBorder" Property="BorderBrush" Value="White"/>
+                <Setter TargetName="toogleBorder" Property="Background" Value="#FF6F317B" />
             </Trigger>
             <Trigger Property="IsChecked" Value="true">
                 <Setter TargetName="toogleBorder" Property="Background" Value="#FF40AC2C" />
@@ -31,5 +31,6 @@
                 <Setter TargetName="toogleBorder" Property="Background" Value="LightGray"/>
             </Trigger>
         </ControlTemplate.Triggers>
+        
     </ControlTemplate>
 </ResourceDictionary>
