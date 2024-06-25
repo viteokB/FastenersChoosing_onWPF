@@ -460,17 +460,17 @@
                             </Grid.ColumnDefinitions>
                             <RadioButton Template="{StaticResource SelectLetter}" Margin="4"
                          Grid.Row="0" Grid.Column="0" Content="A =" 
-                         IsChecked="{Binding WeldingSigma.CalcForce}"/>
+                         IsChecked="{Binding AreaOfCrumple.CalcA}"/>
                             <RadioButton Grid.Row="1" Grid.Column="0" Margin="4"
                          Template="{StaticResource SelectLetter}" Content="d₃ ="
-                         IsChecked="{Binding WeldingSigma.CalcSquare}"/>
+                         IsChecked="{Binding AreaOfCrumple.CalcD}"/>
                             <RadioButton Grid.Row="2" Grid.Column="0" Margin="4"
                          Template="{StaticResource SelectLetter}" Content="δ&#8344;&#7522;&#8345; ="
-                         IsChecked="{Binding WeldingSigma.CalcLength}"/>
+                         IsChecked="{Binding AreaOfCrumple.CalcS}"/>
 
                             <TextBox Grid.Row="0" Grid.Column="1" Margin="0,5,0,5">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Force">
+                                    <Binding Path="AreaOfCrumple.A">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>
@@ -479,7 +479,7 @@
                             </TextBox>
                             <TextBox Grid.Row="1" Grid.Column="1" Margin="0,5,0,5">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Square">
+                                    <Binding Path="AreaOfCrumple.D">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>
@@ -488,7 +488,7 @@
                             </TextBox>
                             <TextBox Grid.Row="2" Grid.Column="1" Margin="0,5,0,5">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Length">
+                                    <Binding Path="AreaOfCrumple.S">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>
@@ -553,24 +553,24 @@
                             </Grid.ColumnDefinitions>
                             <RadioButton Template="{StaticResource SelectLetter}" Margin="4"
                          Grid.Row="0" Grid.Column="0" Content="F =" 
-                         IsChecked="{Binding WeldingSigma.CalcForce}"/>
+                         IsChecked="{Binding StrengthCrumple.CalcF}"/>
                             <RadioButton Grid.Row="2" Grid.Column="0" Margin="4"
                          Template="{StaticResource SelectLetter}" Content="d₃ ="
-                         IsChecked="{Binding WeldingSigma.CalcSquare}"/>
+                         IsChecked="{Binding StrengthCrumple.CalcD}"/>
                             <RadioButton Grid.Row="3" Grid.Column="0" Margin="4"
                          Template="{StaticResource SelectLetter}" Content="δ&#8344;&#7522;&#8345; ="
-                         IsChecked="{Binding WeldingSigma.CalcLength}"/>
+                         IsChecked="{Binding StrengthCrumple.CalcQ}"/>
                             <RadioButton Grid.Row="1" Grid.Column="0" Margin="4"
                          Template="{StaticResource SelectLetter}" Content="z ="
-                         IsChecked="{Binding WeldingSigma.CalcLength}"/>
+                         IsChecked="{Binding StrengthCrumple.CalcZ}"/>
                             <RadioButton Grid.Row="4" Grid.Column="0" Margin="4"
-                         IsChecked="{Binding WeldingSigma.CalcSigma}"
-                         Template="{StaticResource SelectLetter}" Content="σ =">
-                            </RadioButton>
+                         IsChecked="{Binding StrengthCrumple.CalcS}"
+                         Template="{StaticResource SelectLetter}" Content="σ ="/>
+
 
                             <TextBox Grid.Row="0" Grid.Column="1" Margin="0,5,0,5">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Force">
+                                    <Binding Path="StrengthCrumple.F">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>
@@ -579,7 +579,7 @@
                             </TextBox>
                             <TextBox Grid.Row="1" Grid.Column="1" Margin="0,5,0,5">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Square">
+                                    <Binding Path="StrengthCrumple.Z">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>
@@ -588,7 +588,7 @@
                             </TextBox>
                             <TextBox Grid.Row="2" Grid.Column="1" Margin="0,5,0,5">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Length">
+                                    <Binding Path="StrengthCrumple.D">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>
@@ -597,7 +597,7 @@
                             </TextBox>
                             <TextBox Grid.Row="3" Grid.Column="1" Margin="0,5,0,5">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Sigma">
+                                    <Binding Path="StrengthCrumple.Q">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>
@@ -607,7 +607,7 @@
 
                             <TextBox Grid.Row="4" Grid.Column="1" Margin="0,5,0,5">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Sigma">
+                                    <Binding Path="StrengthCrumple.S">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>
@@ -634,8 +634,10 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBlock FontSize="16" Style="{StaticResource SomeHeader}" Grid.Row="0"
-                                   HorizontalAlignment="Center" Text="Условие прочности на смятие:">
+                        <TextBlock FontSize="15" Style="{StaticResource SomeHeader}" Grid.Row="0"
+                                   HorizontalAlignment="Center" Margin="2">
+                            <Run Text="Необходимое число заклёпок"/><LineBreak/>
+                            <Run Text="      из расчёта на смятие"/>
                         </TextBlock>
                         <Grid Grid.Row="1">
                             <TextBlock HorizontalAlignment="Left" 

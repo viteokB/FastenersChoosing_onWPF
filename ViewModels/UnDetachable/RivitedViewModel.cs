@@ -135,6 +135,10 @@ namespace FastenersChoosing.ViewModels.UnDetachable
 
         public NeededRivetsSrez NeededRivetsSrez { get; set; }
 
+        public AreaOfCrumple AreaOfCrumple { get; set; }
+
+        public StrengthCrumple StrengthCrumple { get; set; }
+
         #endregion
 
         #endregion
@@ -195,6 +199,8 @@ namespace FastenersChoosing.ViewModels.UnDetachable
             LoadPerRivet = new();
             RivetSrez = new();
             NeededRivetsSrez = new();
+            AreaOfCrumple = new();
+            StrengthCrumple = new();
         }
     }
 }
