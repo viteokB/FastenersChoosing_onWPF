@@ -22,6 +22,9 @@
             <DataTemplate DataType="{x:Type undetvm:GluedViewModel}">
                 <view:GluedView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type undetvm:RivitedViewModel}">
+                <view:RivetedView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

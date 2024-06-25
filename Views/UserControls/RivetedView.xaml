@@ -4,9 +4,188 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FastenersChoosing.Views.UserControls"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:vm="clr-namespace:FastenersChoosing.ViewModels.UnDetachable"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="544" d:DesignWidth="809">
+    <UserControl.DataContext>
+        <vm:RivitedViewModel/>
+    </UserControl.DataContext>
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--<Border Grid.Row="0" Background="#FF2AB7BB" Style="{StaticResource SomeHeaderBorder}" Margin="5,5,5,5">
+            <TextBlock Grid.Row="0" Grid.Column="0" 
+                   Style="{StaticResource SomeHeader}"
+                   Text="Конфигурации соединения" FontSize="14"/>
+        </Border>-->
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" Margin="5,0,5,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Характер соединения" 
+                           Style="{StaticResource SomeHeader}" FontSize="15"
+                           HorizontalAlignment="Center"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" 
+                          Margin="5" ItemsSource="{Binding ListCharacter}"
+                          SelectedValue="{Binding ConnectionCharacter}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding SelectedCharacterCommand}"
+                                                   CommandParameter="{Binding ConnectionCharacter}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+                <Image Grid.Row="2" Margin="5" Stretch="Uniform" Source="{Binding CharacterImage}"/>
+            </Grid>
+
+            <Grid Grid.Column="1" Margin="5,0,5,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Характер соединения" 
+                           Style="{StaticResource SomeHeader}" FontSize="15"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" 
+                          Margin="5" ItemsSource="{Binding ListLocation}"
+                          SelectedValue="{Binding ConnectionLocation}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding SelectedLocationCommand}"
+                                       CommandParameter="{Binding ConnectionLocation}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+                <Image Grid.Row="2" Margin="5" Stretch="Uniform" Source="{Binding LocationImage}"/>
+            </Grid>
+
+            <Grid Grid.Column="2" Margin="5,0,5,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Характер соединения" 
+               Style="{StaticResource SomeHeader}" FontSize="15"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" 
+              Margin="5" ItemsSource="{Binding ListClassification}"
+              SelectedValue="{Binding ConnectionClassification}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding SelectedClassificationCommand}"
+                                       CommandParameter="{Binding ConnectionClassification}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+                <ScrollViewer Background="WhiteSmoke" Grid.Row="2" Margin="5">
+                    <TextBlock  Margin="5,0,5,5"
+                                FontSize="16" FontFamily="Times New Roman"
+                                Text="{Binding ClassificationDescription}" TextWrapping="Wrap"/>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+
+        <Border Grid.Row="2" Grid.ColumnSpan="3" Margin="5,5,5,0"
+                    Style="{StaticResource SomeHeaderBorder}" Background="DarkRed">
+            <TextBlock Text="Расчеты" Style="{StaticResource SomeHeader}" FontSize="14"/>
+        </Border>
+
+        <TabControl Grid.Row="3" Background="Transparent">
+            <TabItem Header="Нагрузки на одну заклепку">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock FontSize="16" Style="{StaticResource SomeHeader}" Grid.Row="0"
+                               HorizontalAlignment="Center">
+                        <Run Text="Расчёт односрезного соединения."/><LineBreak/>
+                        <Run Text="     Нагрузка на одну заклёпку:"/>
+                        </TextBlock>
+                        <Grid Grid.Row="1">
+                            <TextBlock Text="F' = " HorizontalAlignment="Left" 
+                                   Margin="81,0,0,0" VerticalAlignment="Center"
+                                   Style="{StaticResource SomeHeader}" FontSize="20"/>
+                            <TextBlock HorizontalAlignment="Left" 
+                                   Margin="121,0,0,0" VerticalAlignment="Center"
+                                   Style="{StaticResource SomeHeader}" FontSize="20">
+                            <Run Text="   F   "/><LineBreak/>
+                            <Run Text="------------------------------" FontSize="4"/><LineBreak/>
+                            <Run Text="   Z   "/>
+                            </TextBlock>
+                        </Grid>
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock FontSize="16" Style="{StaticResource SomeHeader}" Grid.Row="0"
+                                   HorizontalAlignment="Center"><Run Text="Расчёт односрезного соединения."/>
+                            <LineBreak/>
+                            <Run Text="     Нагрузка на одну заклёпку:"/>
+                        </TextBlock>
+                        <Grid Grid.Row="1">
+                            <TextBlock Text="F' = " HorizontalAlignment="Left" 
+                                       Margin="81,0,0,0" VerticalAlignment="Center"
+                                       Style="{StaticResource SomeHeader}" FontSize="20"/>
+                            <TextBlock HorizontalAlignment="Left" 
+                                       Margin="121,0,0,0" VerticalAlignment="Center"
+                                       Style="{StaticResource SomeHeader}" FontSize="20">
+                                <Run Text="   F   "/><LineBreak/>
+                                <Run Text="------------------------------" FontSize="4"/><LineBreak/>
+                                <Run Text="   Z   "/>
+                            </TextBlock>
+                        </Grid>
+                    </Grid>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Условие прочности на срез">
+                
+            </TabItem>
+            <TabItem Header="Расчёт заклёпок и листов на смятие">
+
+            </TabItem>
+            <TabItem Header="Расчёт соединяемых листов на растяжение">
+
+            </TabItem>
+
+
+        </TabControl>
     </Grid>
 </UserControl>

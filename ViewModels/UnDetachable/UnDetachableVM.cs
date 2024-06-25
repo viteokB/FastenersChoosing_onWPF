@@ -19,6 +19,8 @@ namespace FastenersChoosing.ViewModels.UnDetachable
 
         private GluedViewModel GluedViewModel;
 
+        private RivitedViewModel RivitedViewModel;
+
         #endregion
 
         #region CurrentView
@@ -68,12 +70,29 @@ namespace FastenersChoosing.ViewModels.UnDetachable
 
         #endregion
 
+        #region IsCheckedRivited
+
+        private bool _isCheckedRivited;
+
+        public bool IsCheckedRivited
+        {
+            get => _isCheckedRivited;
+            set
+            {
+                Set(ref _isCheckedRivited, value);
+                CurrentView = RivitedViewModel;
+            }
+        }
+
+        #endregion
+
         #endregion
 
         public UnDetachableVM()
         {
             WeldingViewModel = new();
             GluedViewModel = new();
+            RivitedViewModel = new();
 
             IsCheckedWelding = true;
         }

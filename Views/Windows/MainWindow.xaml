@@ -195,6 +195,7 @@
                                      Style="{StaticResource MenuButtonTheme}"/>
                         <RadioButton Content="Клепаное" Height="40" Width="145"
                                      FontSize="22" Foreground="White"
+                                     IsChecked="{Binding IsCheckedRivited}"
                                      Style="{StaticResource MenuButtonTheme}"/>
                         <RadioButton Content="Паяное" Height="40" Width="145"
                                      FontSize="22" Foreground="White"
