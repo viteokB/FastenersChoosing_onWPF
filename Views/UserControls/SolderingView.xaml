@@ -279,7 +279,7 @@
                             <TextBlock Grid.Row="0" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
                    Text="H" Style="{StaticResource SomeHeader}"/>
                             <TextBlock Grid.Row="1" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
-                   Text="мм&#178;" Style="{StaticResource SomeHeader}"/>
+                   Text="мм" Style="{StaticResource SomeHeader}"/>
                             <TextBlock Grid.Row="2" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
                    Text="мм" Style="{StaticResource SomeHeader}"/>
                             <TextBlock Grid.Row="3" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
@@ -303,7 +303,7 @@
                         </Grid.RowDefinitions>
                         <TextBlock FontSize="15" Style="{StaticResource SomeHeader}" Grid.Row="0"
                    HorizontalAlignment="Center">
-            <Run Text="Для стыковых соединений:"/>
+            <Run Text="Для нахлесточных соединений:"/>
                         </TextBlock>
                         <Grid Grid.Row="1">
                             <TextBlock Text="L = " HorizontalAlignment="Left" 
