@@ -187,19 +187,20 @@
                                 Margin="5,0,5,5" Orientation="Horizontal">
                         <RadioButton Content="Сварное" Height="40" Width="145"
                                      FontSize="22" Foreground="White" 
-                                     IsChecked="{Binding IsCheckedWelding}"
+                                     IsChecked="True"
+                                     Command="{Binding SelectWeldingСommand}"
                                      Style="{StaticResource MenuButtonTheme}"/>
                         <RadioButton Content="Клееное" Height="40" Width="145"
                                      FontSize="22" Foreground="White"
-                                     IsChecked="{Binding IsCheckedGlueing}"
+                                     Command="{Binding SelectGlueingСommand}"
                                      Style="{StaticResource MenuButtonTheme}"/>
                         <RadioButton Content="Клепаное" Height="40" Width="145"
                                      FontSize="22" Foreground="White"
-                                     IsChecked="{Binding IsCheckedRivited}"
+                                     Command="{Binding SelectRivetedСommand}"
                                      Style="{StaticResource MenuButtonTheme}"/>
                         <RadioButton Content="Паяное" Height="40" Width="145"
                                      FontSize="22" Foreground="White"
-                                     IsChecked="{Binding IsCheckedSoldering}"
+                                     Command="{Binding SelectSolderingСommand}"
                                      Style="{StaticResource MenuButtonTheme}"/>
                     </StackPanel>
                     <ContentControl Grid.Row="1" Grid.Column="0"

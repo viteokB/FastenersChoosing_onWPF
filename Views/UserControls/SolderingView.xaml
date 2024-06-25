@@ -73,7 +73,7 @@
             </Border>
             <Image Margin="5" Grid.Row="1" Source="{Binding Image}" Stretch="Uniform"/>
         </Grid>
-        <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,5,5,5"
+        <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,5,5,0"
                             Style="{StaticResource SomeHeaderBorder}" Background="DarkRed">
             <TextBlock Text="Расчеты" Style="{StaticResource SomeHeader}" FontSize="14"/>
         </Border>
@@ -331,20 +331,20 @@
                             </Grid.ColumnDefinitions>
                             <RadioButton Template="{StaticResource SelectLetter}" Margin="4"
                          Grid.Row="0" Grid.Column="0" Content="[ σ ] =" 
-                         IsChecked="{Binding WeldingSigma.CalcForce}"/>
+                         IsChecked="{Binding SoldeingRavnoProch.CalcS}"/>
                             <RadioButton Grid.Row="1" Grid.Column="0" Margin="4"
                          Template="{StaticResource SelectLetter}" Content="δ ="
-                         IsChecked="{Binding WeldingSigma.CalcSquare}"/>
+                         IsChecked="{Binding SoldeingRavnoProch.CalcQ}"/>
                             <RadioButton Grid.Row="2" Grid.Column="0" Margin="4"
                          Template="{StaticResource SelectLetter}" Content="[ τ' ] ="
-                         IsChecked="{Binding WeldingSigma.CalcLength}"/>
+                         IsChecked="{Binding SoldeingRavnoProch.CalcT}"/>
                             <RadioButton Grid.Row="3" Grid.Column="0" Margin="4"
-                         IsChecked="{Binding WeldingSigma.CalcSigma}"
+                         IsChecked="{Binding SoldeingRavnoProch.CalcL}"
                          Template="{StaticResource SelectLetter}" Content="L ="/>
 
                             <TextBox Grid.Row="0" Grid.Column="1" Margin="0,5,0,5">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Force">
+                                    <Binding Path="SoldeingRavnoProch.S">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>
@@ -353,7 +353,7 @@
                             </TextBox>
                             <TextBox Grid.Row="1" Grid.Column="1" Margin="0,5,0,5">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Square">
+                                    <Binding Path="SoldeingRavnoProch.Q">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>
@@ -362,7 +362,7 @@
                             </TextBox>
                             <TextBox Grid.Row="2" Grid.Column="1" Margin="0,5,0,5">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Length">
+                                    <Binding Path="SoldeingRavnoProch.T">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>
@@ -371,7 +371,7 @@
                             </TextBox>
                             <TextBox Grid.Row="3" Grid.Column="1" Margin="0,5,0,5">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Sigma">
+                                    <Binding Path="SoldeingRavnoProch.L">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>

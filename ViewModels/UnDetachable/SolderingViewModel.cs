@@ -96,6 +96,8 @@ namespace FastenersChoosing.ViewModels.UnDetachable
 
         public SoldeingNahl SoldeingNahl { get; set; }
 
+        public SoldeingRavnoProch SoldeingRavnoProch { get; set; }
+
         #endregion
 
         public SolderingViewModel()
@@ -109,6 +111,8 @@ namespace FastenersChoosing.ViewModels.UnDetachable
             SolderingStuk = new();
 
             SoldeingNahl = new();
+
+            SoldeingRavnoProch = new();
         }
     }
 }

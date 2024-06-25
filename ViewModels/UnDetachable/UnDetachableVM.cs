@@ -37,77 +37,55 @@ namespace FastenersChoosing.ViewModels.UnDetachable
 
         #endregion
 
-        #region IsChecked
+        #region Команды
 
-        #region IsCheckedWelding
+        #region SelectWeldingСommand
 
-        private bool _isCheckedWelding;
+        public LambdaCommand SelectWeldingСommand { get; set; }
 
-        public bool IsCheckedWelding 
+        private void SelectWeldingMethod(object obj)
         {
-            get => _isCheckedWelding;
-            set
-            {
-                Set(ref _isCheckedWelding, value);
-                if(WeldingViewModel is null)
-                    WeldingViewModel = new();
-                CurrentView = WeldingViewModel;
-            }
-        }
-
-
-        #endregion
-
-        #region IsCheckedGlueing
-
-        private bool _isCheckedGlueing;
-
-        public bool IsCheckedGlueing
-        {
-            get => _isCheckedGlueing;
-            set
-            {
-                Set(ref _isCheckedGlueing, value);
-                if(GluedViewModel is null)
-                    GluedViewModel = new();
-                CurrentView = GluedViewModel;
-            }
+            if (WeldingViewModel is null)
+                WeldingViewModel = new();
+            CurrentView = WeldingViewModel;
         }
 
         #endregion
 
-        #region IsCheckedRivited
+        #region SelectGlueingСommand
+        public LambdaCommand SelectGlueingСommand { get; set; }
 
-        private bool _isCheckedRivited;
-
-        public bool IsCheckedRivited
+        private void SelectGlueingMethod(object obj)
         {
-            get => _isCheckedRivited;
-            set
-            {
-                Set(ref _isCheckedRivited, value);
-                if(RivitedViewModel is null)
-                    RivitedViewModel = new();
-                CurrentView = RivitedViewModel;
-            }
+            if (GluedViewModel is null)
+                GluedViewModel = new();
+            CurrentView = GluedViewModel;
         }
 
         #endregion
 
-        #region IsCheckedSoldering
+        #region SelectRivetedСommand
 
-        private bool _isCheckedSoldering;
+        public LambdaCommand SelectRivetedСommand { get; set; }
 
-        public bool IsCheckedSoldering
+        private void SelectRivetedMethod(object obj)
         {
-            get => _isCheckedSoldering;
-            set
-            {
-                Set(ref _isCheckedSoldering, value);
-                if(SolderingViewModel is null)
-                    SolderingViewModel = new();
-                CurrentView = SolderingViewModel;
-            }
+            if (RivitedViewModel is null)
+                RivitedViewModel = new();
+            CurrentView = RivitedViewModel;
+        }
+
+        #endregion
+
+        #region SelectSolderingСommand
+
+        public LambdaCommand SelectSolderingСommand { get; set; }
+
+        private void SelectSolderingMethod(object obj)
+        {
+            if (SolderingViewModel is null)
+                SolderingViewModel = new();
+            CurrentView = SolderingViewModel;
         }
 
         #endregion
@@ -116,7 +94,12 @@ namespace FastenersChoosing.ViewModels.UnDetachable
 
         public UnDetachableVM()
         {
-            IsCheckedWelding = true;
+            SelectWeldingСommand = new LambdaCommand(SelectWeldingMethod);
+            SelectGlueingСommand = new LambdaCommand(SelectGlueingMethod);
+            SelectRivetedСommand = new LambdaCommand(SelectRivetedMethod);
+            SelectSolderingСommand = new LambdaCommand(SelectSolderingMethod);
+
+            SelectWeldingСommand.Execute(null);
         }
     }
 }
