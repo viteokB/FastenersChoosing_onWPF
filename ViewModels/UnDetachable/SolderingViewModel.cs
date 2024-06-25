@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using FastenersChoosing.Models.UnDetachableFasteners.SolderingCalculations;
 
 namespace FastenersChoosing.ViewModels.UnDetachable
 {
@@ -69,14 +70,6 @@ namespace FastenersChoosing.ViewModels.UnDetachable
 
         #endregion
 
-        #region Расчеты
-
-        public WeldingSigma WeldingSigma { get; set; }
-
-        public WeldingSrez WeldingSrez { get; set; }
-
-        #endregion
-
         #endregion
 
         #region Команды
@@ -97,6 +90,14 @@ namespace FastenersChoosing.ViewModels.UnDetachable
 
         #endregion
 
+        #region Расчеты
+
+        public SolderingStuk SolderingStuk { get; set; }
+
+        public SoldeingNahl SoldeingNahl { get; set; }
+
+        #endregion
+
         public SolderingViewModel()
         {
             Image = SetImage(_standartPath);
@@ -105,9 +106,9 @@ namespace FastenersChoosing.ViewModels.UnDetachable
 
             SelectedTypeCommand = new(SelectedTypeMethod);
 
-            WeldingSigma = new();
+            SolderingStuk = new();
 
-            WeldingSrez = new();
+            SoldeingNahl = new();
         }
     }
 }
