@@ -1,12 +1,10 @@
 ﻿using FastenersChoosing.Infrastructure.Commands;
 using FastenersChoosing.Models.DetachableFasteners;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Windows.Media.Imaging;
 
-namespace FastenersChoosing.ViewModels
+namespace FastenersChoosing.ViewModels.Detachable
 {
-    public class MainVM : BaseViewModel
+    public class DetachableVM : BaseViewModel
     {
         #region Свойства
 
@@ -28,15 +26,6 @@ namespace FastenersChoosing.ViewModels
         }
         #endregion
 
-        #region SelectedIndex для выбора изделия из ListView
-        private int _selectedIndex;
-        public int SelectedIndex
-        {
-            get => _selectedIndex;
-            set => Set(ref _selectedIndex, value);
-        }
-        #endregion
-
         #region SelectedTabIndex
 
         private int _selectedTabIndex;
@@ -47,6 +36,15 @@ namespace FastenersChoosing.ViewModels
             set => Set(ref _selectedTabIndex, value);
         }
 
+        #endregion
+
+        #region SelectedIndex для выбора изделия из ListView
+        private int _selectedIndex;
+        public int SelectedIndex
+        {
+            get => _selectedIndex;
+            set => Set(ref _selectedIndex, value);
+        }
         #endregion
 
         #region Списки строк для заполнения ComboBoxesItems
@@ -125,8 +123,8 @@ namespace FastenersChoosing.ViewModels
                 var gostsImages = DBModel.GetPathAndGost(type.ToString());
                 typesGosts = gostsImages[0];
                 FillPossibleFasteners(typesGosts, gostsImages[1]);
-                SelectedFastener.Description = DBModel.GetStringDescription(type.ToString());
                 SelectedTabIndex = 1;
+                SelectedFastener.Description = DBModel.GetStringDescription(type.ToString());
                 ClearParametrsCommand.Execute(null);
             }
             else
@@ -144,8 +142,8 @@ namespace FastenersChoosing.ViewModels
             if (gost != null)
             {
                 SelectedFastener.Image = SetImage(DBModel.GetStringImagePath(gost.ToString()));
-                SelectedTabIndex = 0;
                 GostParametrs = DBModel.GetGostParametrs(gost.ToString());
+                SelectedTabIndex = 0;
             }
             else
                 SelectedFastener.Image = Fastener.DefaultImage;
@@ -164,8 +162,8 @@ namespace FastenersChoosing.ViewModels
                 var tmp = PossibleFastners[SelectedIndex];
                 SelectedFastener.Gost = tmp.Gost;
                 SelectedFastener.Image = tmp.Image;
-                SelectedTabIndex = 0;
                 GostParametrs = DBModel.GetGostParametrs(SelectedFastener.Gost.ToString());
+                SelectedTabIndex = 0;
             }
         }
 
@@ -197,14 +195,32 @@ namespace FastenersChoosing.ViewModels
 
         #endregion
 
+        #region FillItemsCommand
+
+        public LambdaCommand FillItemsCommand { get; }
+
+        public void FillItemsExucteMethod(object obj)
+        {
+            allNames = DBModel.GetListFastenersNames();
+        }
+
+        public bool FillItemsCanExMethod(object obj)
+        {
+            if(allNames == null || allNames.Count == 0)
+                return true;
+
+            return false;
+        }
+
         #endregion
 
-        public MainVM()
+        #endregion
+
+        public DetachableVM()
         {
             SelectedFastener = new Fastener(SetImage(_standartPath));
 
-            allNames = DBModel.GetListFastenersNames();
-
+            FillItemsCommand = new LambdaCommand(FillItemsExucteMethod, FillItemsCanExMethod);
             SelectedNameCommand = new LambdaCommand(SelectedNameMethod);
             SelectedTypeCommand = new LambdaCommand(SelectedTypeMethod);
             SelectedGostCommand = new LambdaCommand(SelectedGostMethod);
@@ -222,23 +238,5 @@ namespace FastenersChoosing.ViewModels
                 PossibleFastners.Add(new Fastener(gosts[i], SetImage(localPaths[i])));
             }
         }
-
-        #region Методы установки изображения по отн. пути
-        public BitmapImage SetImage(string localPath)
-        {
-            Uri uri = new Uri(GetAbsolutPath(localPath), UriKind.Absolute);
-
-            return new BitmapImage(uri);
-        }
-
-        private string GetAbsolutPath(string localPath)
-        {
-            string currentDirectory = Directory.GetCurrentDirectory();
-            string absolutPath = currentDirectory + localPath;
-
-            return absolutPath;
-        }
-
-        #endregion
     }
 }

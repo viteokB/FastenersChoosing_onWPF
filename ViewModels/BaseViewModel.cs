@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
+using System.Windows.Media.Imaging;
 
 namespace FastenersChoosing.ViewModels
 {
@@ -19,6 +21,21 @@ namespace FastenersChoosing.ViewModels
             field = value;
             OnPropertyChanged(PropertyName);
             return true;
+        }
+
+        public static BitmapImage SetImage(string localPath)
+        {
+            Uri uri = new Uri(GetAbsolutPath(localPath), UriKind.Absolute);
+
+            return new BitmapImage(uri);
+        }
+
+        private static string GetAbsolutPath(string localPath)
+        {
+            string currentDirectory = Directory.GetCurrentDirectory();
+            string absolutPath = currentDirectory + localPath;
+
+            return absolutPath;
         }
     }
 }

@@ -2,14 +2,32 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:FastenersChoosing"
+             xmlns:undetvm="clr-namespace:FastenersChoosing.ViewModels.UnDetachable"
+             xmlns:detvm="clr-namespace:FastenersChoosing.ViewModels.Detachable"
+             xmlns:view="clr-namespace:FastenersChoosing.Views.UserControls"
              StartupUri="Views\Windows\MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/TBlocksAndBorders.xaml"/>
-                <ResourceDictionary Source="Resources/Styles/ListViewsStyles.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/ListViewsResources.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/ButtonsResource.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/ListViewsResources.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/MenuButtonTheme.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/SelectCalculatedLetter.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type undetvm:WeldingViewModel}">
+                <view:WeldingView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type undetvm:GluedViewModel}">
+                <view:GluedView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type undetvm:RivitedViewModel}">
+                <view:RivetedView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type undetvm:SolderingViewModel}">
+                <view:SolderingView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
