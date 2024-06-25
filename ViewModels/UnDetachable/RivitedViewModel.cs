@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.ComponentModel;
+using FastenersChoosing.Models.UnDetachableFasteners.RivetedCalcultions;
 
 namespace FastenersChoosing.ViewModels.UnDetachable
 {
@@ -128,9 +129,9 @@ namespace FastenersChoosing.ViewModels.UnDetachable
 
         #region Расчеты
 
-        //public WeldingSigma WeldingSigma { get; set; }
+        public LoadPerRivet LoadPerRivet { get; set; }
 
-        //public WeldingSrez WeldingSrez { get; set; }
+        public RivetSrez RivetSrez { get; set; }
 
         #endregion
 
@@ -188,6 +189,9 @@ namespace FastenersChoosing.ViewModels.UnDetachable
             SelectedCharacterCommand = new(SelectedCharacterMethod);
             SelectedLocationCommand = new(SelectedLocationMethod);
             SelectedClassificationCommand = new(SelectedClassificationMethod);
+
+            LoadPerRivet = new();
+            RivetSrez = new();
         }
     }
 }

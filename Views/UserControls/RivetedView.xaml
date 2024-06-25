@@ -115,21 +115,21 @@
         </Border>
 
         <TabControl Grid.Row="3" Background="Transparent">
-            <TabItem Header="Нагрузки на одну заклепку">
+            <TabItem Header="Нагрузкa, условие прочности на срез ">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBlock FontSize="16" Style="{StaticResource SomeHeader}" Grid.Row="0"
+                        <TextBlock FontSize="15" Style="{StaticResource SomeHeader}" Grid.Row="0"
                                HorizontalAlignment="Center">
                         <Run Text="Расчёт односрезного соединения."/><LineBreak/>
                         <Run Text="     Нагрузка на одну заклёпку:"/>
@@ -146,6 +146,363 @@
                             <Run Text="   Z   "/>
                             </TextBlock>
                         </Grid>
+                        <Grid Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <RadioButton Template="{StaticResource SelectLetter}" Margin="4"
+                                         Grid.Row="0" Grid.Column="0" Content="F' =" 
+                                         IsChecked="{Binding LoadPerRivet.CalcF_sht}"/>
+                            <RadioButton Grid.Row="1" Grid.Column="0" Margin="4"
+                                         Template="{StaticResource SelectLetter}" Content="F ="
+                                         IsChecked="{Binding LoadPerRivet.CalcForce}"/>
+                            <RadioButton Grid.Row="2" Grid.Column="0" Margin="4"
+                                         Template="{StaticResource SelectLetter}" Content="Z ="
+                                         IsChecked="{Binding LoadPerRivet.CalcZ}"/>
+
+                            <TextBox Grid.Row="0" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="LoadPerRivet.F_sht">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Grid.Row="1" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="LoadPerRivet.F">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Grid.Row="2" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="LoadPerRivet.Z">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <TextBlock Grid.Row="0" Grid.Column="2" Margin="5,10,0,5" HorizontalAlignment="Left"
+                                       Text="H" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" Margin="5,10,0,5" HorizontalAlignment="Left"
+                                       Text="H" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="2" Margin="5,10,0,5" HorizontalAlignment="Left" 
+                                       Text="ед." Style="{StaticResource SomeHeader}"/>
+                        </Grid>
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock FontSize="15" Style="{StaticResource SomeHeader}" Grid.Row="0"
+                                   HorizontalAlignment="Center" Text="Условие прочности на срез/сдвиг">
+                        </TextBlock>
+                        <Grid Grid.Row="1">
+                            <TextBlock Text="τ = " HorizontalAlignment="Left" 
+                                       Margin="35,0,0,0" VerticalAlignment="Center"
+                                       Style="{StaticResource SomeHeader}" FontSize="20"/>
+                            <TextBlock HorizontalAlignment="Left" 
+                                       Margin="72,0,0,0" VerticalAlignment="Center"
+                                       Style="{StaticResource SomeHeader}" FontSize="20">
+                                <Run Text="    4F'   "/><LineBreak/>
+                                <Run Text="-----------------------------------------------------------------------" 
+                                     FontSize="4"/><LineBreak/>
+                                <Run Text=" &#120529; * d₃&#178; * z "/>
+                            </TextBlock>
+                            <TextBlock Text="&#10877; [τ] " HorizontalAlignment="Left" 
+                                       Margin="172,0,0,0" VerticalAlignment="Center"
+                                       Style="{StaticResource SomeHeader}" FontSize="20"/>
+                        </Grid>
+
+                        <Grid Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <RadioButton Template="{StaticResource SelectLetter}" Margin="4"
+                                         Grid.Row="0" Grid.Column="0" Content="F' =" 
+                                         IsChecked="{Binding RivetSrez.CalcF}"/>
+                            <RadioButton Grid.Row="1" Grid.Column="0" Margin="4"
+                                         Template="{StaticResource SelectLetter}" Content="d₃ ="
+                                         IsChecked="{Binding RivetSrez.CalcD}"/>
+                            <RadioButton Grid.Row="2" Grid.Column="0" Margin="4"
+                                         Template="{StaticResource SelectLetter}" Content="z ="
+                                         IsChecked="{Binding RivetSrez.CalcZ}"/>
+                            <RadioButton Grid.Row="3" Grid.Column="0" Margin="4"
+                                         IsChecked="{Binding RivetSrez.CalcT}"
+                                         Template="{StaticResource SelectLetter}" Content="τ ="/>
+
+                            <TextBox Grid.Row="0" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="RivetSrez.F_sht">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Grid.Row="1" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="RivetSrez.D">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Grid.Row="2" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="RivetSrez.Z">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <TextBox Grid.Row="3" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="RivetSrez.T">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <TextBlock Grid.Row="0" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                                       Text="H" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                                       Text="мм" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                                       Text="Н / мм&#178;" Style="{StaticResource SomeHeader}"/>
+                        </Grid>
+                    </Grid>
+
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock FontSize="15" Style="{StaticResource SomeHeader}" Grid.Row="0"
+                               HorizontalAlignment="Center">
+                            <Run Text="Необходимое число заклёпок,"/><LineBreak/>
+                            <Run Text="  с одной стороны, от стыка:"/>
+                        </TextBlock>
+                        <Grid Grid.Row="1">
+                            <TextBlock Text="z' = " HorizontalAlignment="Left" 
+                                       Margin="35,0,0,0" VerticalAlignment="Center"
+                                       Style="{StaticResource SomeHeader}" FontSize="18"/>
+                            <TextBlock HorizontalAlignment="Left" 
+                                       Margin="72,0,0,0" VerticalAlignment="Center"
+                                       Style="{StaticResource SomeHeader}" FontSize="18">
+                                <Run Text="    4F'   "/><LineBreak/>
+                                <Run Text="-----------------------------------------------------------------------" 
+                                     FontSize="5"/><LineBreak/>
+                                <Run Text=" &#120529; * d₃&#178; * i * [τ] "/>
+                            </TextBlock>
+                        </Grid>
+
+                        <Grid Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <RadioButton Template="{StaticResource SelectLetter}" Margin="4"
+                                         Grid.Row="0" Grid.Column="0" Content="F' =" 
+                                         IsChecked="{Binding WeldingSigma.CalcForce}"/>
+                            <RadioButton Grid.Row="1" Grid.Column="0" Margin="4"
+                                         Template="{StaticResource SelectLetter}" Content="&#120529; ="
+                                         IsChecked="{Binding WeldingSigma.CalcSquare}"/>
+                            <RadioButton Grid.Row="2" Grid.Column="0" Margin="4"
+                                         Template="{StaticResource SelectLetter}" Content="d₃&#178; ="
+                                         IsChecked="{Binding WeldingSigma.CalcLength}"/>
+                            <RadioButton Grid.Row="3" Grid.Column="0" Margin="4"
+                                         Template="{StaticResource SelectLetter}" Content="z' ="
+                                         IsChecked="{Binding WeldingSigma.CalcLength}"/>
+                            <RadioButton Grid.Row="4" Grid.Column="0" Margin="4"
+                                         IsChecked="{Binding WeldingSigma.CalcSigma}"
+                                         Template="{StaticResource SelectLetter}" Content="[ τ ] ="/>
+
+                            <TextBox Grid.Row="0" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Force">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Grid.Row="1" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Square">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Grid.Row="2" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Length">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Grid.Row="3" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Sigma">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Grid.Row="4" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Sigma">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <TextBlock Grid.Row="0" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                                       Text="H" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                                       Text="мм&#178;" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                                       Text="мм" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                                       Text="Н / мм&#178;" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="4" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                                       Text="Н / мм&#178;" Style="{StaticResource SomeHeader}"/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Расчёт заклёпок и листов на смятие">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock FontSize="16" Style="{StaticResource SomeHeader}" Grid.Row="0"
+                                   HorizontalAlignment="Center">
+                            <Run Text="Площадь смятия:"/>
+                        </TextBlock>
+                        <Grid Grid.Row="1">
+                            <TextBlock Text="A = " HorizontalAlignment="Left" 
+                                       Margin="81,0,0,0" VerticalAlignment="Center"
+                                       Style="{StaticResource SomeHeader}" FontSize="20"/>
+                            <TextBlock HorizontalAlignment="Left" 
+                                       Margin="121,0,0,0" VerticalAlignment="Center"
+                                       Style="{StaticResource SomeHeader}" FontSize="20">
+                                <Run Text=" d₃ * δ&#8344;&#7522;&#8345; "/>
+                            </TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="2" Margin="0,10,0,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <RadioButton Template="{StaticResource SelectLetter}" Margin="4"
+                         Grid.Row="0" Grid.Column="0" Content="A =" 
+                         IsChecked="{Binding WeldingSigma.CalcForce}"/>
+                            <RadioButton Grid.Row="1" Grid.Column="0" Margin="4"
+                         Template="{StaticResource SelectLetter}" Content="d₃ ="
+                         IsChecked="{Binding WeldingSigma.CalcSquare}"/>
+                            <RadioButton Grid.Row="2" Grid.Column="0" Margin="4"
+                         Template="{StaticResource SelectLetter}" Content="δ&#8344;&#7522;&#8345; ="
+                         IsChecked="{Binding WeldingSigma.CalcLength}"/>
+
+                            <TextBox Grid.Row="0" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Force">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Grid.Row="1" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Square">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Grid.Row="2" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Length">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <TextBlock Grid.Row="0" Grid.Column="2" Margin="5,10,0,5" HorizontalAlignment="Left"
+                       Text="H" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" Margin="5,10,0,5" HorizontalAlignment="Left"
+                       Text="H" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="2" Margin="5,10,0,5" HorizontalAlignment="Left" 
+                       Text="ед." Style="{StaticResource SomeHeader}"/>
+                        </Grid>
                     </Grid>
 
                     <Grid Grid.Column="1">
@@ -155,34 +512,386 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBlock FontSize="16" Style="{StaticResource SomeHeader}" Grid.Row="0"
-                                   HorizontalAlignment="Center"><Run Text="Расчёт односрезного соединения."/>
-                            <LineBreak/>
-                            <Run Text="     Нагрузка на одну заклёпку:"/>
+                   HorizontalAlignment="Center" Text="Условие прочности на смятие:">
                         </TextBlock>
                         <Grid Grid.Row="1">
-                            <TextBlock Text="F' = " HorizontalAlignment="Left" 
-                                       Margin="81,0,0,0" VerticalAlignment="Center"
-                                       Style="{StaticResource SomeHeader}" FontSize="20"/>
                             <TextBlock HorizontalAlignment="Left" 
-                                       Margin="121,0,0,0" VerticalAlignment="Center"
+                                       Margin="20,0,0,0" VerticalAlignment="Center"
                                        Style="{StaticResource SomeHeader}" FontSize="20">
-                                <Run Text="   F   "/><LineBreak/>
-                                <Run Text="------------------------------" FontSize="4"/><LineBreak/>
-                                <Run Text="   Z   "/>
+                                <Run Text="σ"/>
+                                <Run BaselineAlignment="Subscript" FontSize="14">cм</Run>
+                                <Run Text="≥"/>
                             </TextBlock>
+                            <TextBlock HorizontalAlignment="Left" Margin="76,0,0,0" VerticalAlignment="Center"
+                                       Style="{StaticResource SomeHeader}" FontSize="20">
+                                <Run Text="    F   "/><LineBreak/>
+                                <Run Text="-----------------------------------------------------------------------" 
+                                     FontSize="4"/><LineBreak/>
+                                <Run Text=" z * d₃ * δ&#8344;&#7522;&#8345;"/>
+                            </TextBlock>
+                            <TextBlock HorizontalAlignment="Left" 
+                                       Margin="178,0,0,0" VerticalAlignment="Center"
+                                       Style="{StaticResource SomeHeader}" FontSize="20">
+                                <Run Text="≤ [ σ"/>
+                                <Run BaselineAlignment="Subscript" FontSize="14">cм</Run>
+                                <Run Text="]"/>
+                            </TextBlock>
+                        </Grid>
+
+                        <Grid Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <RadioButton Template="{StaticResource SelectLetter}" Margin="4"
+                         Grid.Row="0" Grid.Column="0" Content="F =" 
+                         IsChecked="{Binding WeldingSigma.CalcForce}"/>
+                            <RadioButton Grid.Row="2" Grid.Column="0" Margin="4"
+                         Template="{StaticResource SelectLetter}" Content="d₃ ="
+                         IsChecked="{Binding WeldingSigma.CalcSquare}"/>
+                            <RadioButton Grid.Row="3" Grid.Column="0" Margin="4"
+                         Template="{StaticResource SelectLetter}" Content="δ&#8344;&#7522;&#8345; ="
+                         IsChecked="{Binding WeldingSigma.CalcLength}"/>
+                            <RadioButton Grid.Row="1" Grid.Column="0" Margin="4"
+                         Template="{StaticResource SelectLetter}" Content="z ="
+                         IsChecked="{Binding WeldingSigma.CalcLength}"/>
+                            <RadioButton Grid.Row="4" Grid.Column="0" Margin="4"
+                         IsChecked="{Binding WeldingSigma.CalcSigma}"
+                         Template="{StaticResource SelectLetter}" Content="σ =">
+                            </RadioButton>
+
+                            <TextBox Grid.Row="0" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Force">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Grid.Row="1" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Square">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Grid.Row="2" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Length">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Grid.Row="3" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Sigma">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <TextBox Grid.Row="4" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Sigma">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <TextBlock Grid.Row="0" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                       Text="H" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                       Text="мм&#178;" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                       Text="мм" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                       Text="Н / мм&#178;" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="4" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                       Text="Н / мм&#178;" Style="{StaticResource SomeHeader}"/>
                         </Grid>
                     </Grid>
 
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock FontSize="16" Style="{StaticResource SomeHeader}" Grid.Row="0"
+                                   HorizontalAlignment="Center" Text="Условие прочности на смятие:">
+                        </TextBlock>
+                        <Grid Grid.Row="1">
+                            <TextBlock HorizontalAlignment="Left" 
+                                       Margin="42,0,0,0" VerticalAlignment="Center"
+                                       Style="{StaticResource SomeHeader}" FontSize="20">
+                                <Run Text="z"/>
+                                <Run Text="≥"/>
+                            </TextBlock>
+                            <TextBlock HorizontalAlignment="Left" Margin="74,0,0,0" VerticalAlignment="Center"
+                                       Style="{StaticResource SomeHeader}" FontSize="20">
+                                <Run Text="    F'   "/><LineBreak/>
+                                <Run Text="-----------------------------------------------------------------------"
+                                     FontSize="6"/><LineBreak/>
+                                <Run Text="d₃ * δ&#8344;&#7522;&#8345; * ["/>
+                                <Run Text="σ"/>
+                                <Run BaselineAlignment="Subscript" FontSize="14">cм</Run>
+                                <Run Text="]"/>
+                            </TextBlock>
+                        </Grid>
+
+                        <Grid Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <RadioButton Template="{StaticResource SelectLetter}" Margin="4"
+                                         Grid.Row="0" Grid.Column="0" Content="F' =" 
+                                         IsChecked="{Binding WeldingSigma.CalcForce}"/>
+                            <RadioButton Grid.Row="1" Grid.Column="0" Margin="4"
+                                         Template="{StaticResource SelectLetter}" Content="d₃ ="
+                                         IsChecked="{Binding WeldingSigma.CalcSquare}"/>
+                            <RadioButton Grid.Row="2" Grid.Column="0" Margin="4"
+                                         Template="{StaticResource SelectLetter}" Content="δ&#8344;&#7522;&#8345; ="
+                                         IsChecked="{Binding WeldingSigma.CalcLength}"/>
+                            <RadioButton Grid.Row="4" Grid.Column="0" Margin="4"
+                                         Template="{StaticResource SelectLetter}" Content="z ="
+                                         IsChecked="{Binding WeldingSigma.CalcLength}"/>
+                            <RadioButton Grid.Row="3" Grid.Column="0" Margin="4"
+                                         IsChecked="{Binding WeldingSigma.CalcSigma}"
+                                         Template="{StaticResource SelectLetter}" Content="[ σ ] =">
+                            </RadioButton>
+
+                            <TextBox Grid.Row="0" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Force">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Grid.Row="1" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Square">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Grid.Row="2" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Length">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Grid.Row="3" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Sigma">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <TextBox Grid.Row="4" Grid.Column="1" Margin="0,5,0,5">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Sigma">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <TextBlock Grid.Row="0" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left" 
+                                       Text="H" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                                       Text="мм&#178;" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                                       Text="мм" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                                       Text="Н / мм&#178;" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="4" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                                       Text="Н / мм&#178;" Style="{StaticResource SomeHeader}"/>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Условие прочности на срез">
-                
-            </TabItem>
-            <TabItem Header="Расчёт заклёпок и листов на смятие">
-
-            </TabItem>
             <TabItem Header="Расчёт соединяемых листов на растяжение">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock FontSize="15" Style="{StaticResource SomeHeader}" Grid.Row="0" Margin="2"
+                                   HorizontalAlignment="Center" Text="Условие прочности:">
+                        </TextBlock>
+                        <Grid Grid.Row="1">
+                            <TextBlock HorizontalAlignment="Left" 
+                                       Margin="36,0,0,0" VerticalAlignment="Center"
+                                       Style="{StaticResource SomeHeader}" FontSize="16">
+                                <Run Text="σ"/>
+                                <Run BaselineAlignment="Subscript" FontSize="14">p</Run>
+                                <Run Text="≥"/>
+                            </TextBlock>
+                            <TextBlock HorizontalAlignment="Left" Margin="76,0,0,0" VerticalAlignment="Center"
+                                       Style="{StaticResource SomeHeader}" FontSize="16">
+                                <Run Text="          F'   "/><LineBreak/>
+                                <Run Text="---------------------------------------------------------------------"
+                                     FontSize="5"/><LineBreak/>
+                                <Run Text=" δ * (b - z' d₃) "/>
+                            </TextBlock>
+                            <TextBlock HorizontalAlignment="Left" 
+                                       Margin="194,0,0,0" VerticalAlignment="Center"
+                                       Style="{StaticResource SomeHeader}" FontSize="16">
+                                <Run Text="≤ [ σ"/>
+                                <Run BaselineAlignment="Subscript" FontSize="14">р</Run>
+                                <Run Text="]"/>
+                            </TextBlock>
+                        </Grid>
 
+                        <Grid Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <RadioButton Template="{StaticResource SelectLetter}" Margin="4"
+                                          Grid.Row="0" Grid.Column="0" Content="F' =" 
+                                          IsChecked="{Binding WeldingSigma.CalcForce}"/>
+                            <RadioButton Grid.Row="2" Grid.Column="0" Margin="4"
+                                         Template="{StaticResource SelectLetter}" Content="b ="
+                                         IsChecked="{Binding WeldingSigma.CalcSquare}"/>
+                            <RadioButton Grid.Row="1" Grid.Column="0" Margin="4"
+                                          Template="{StaticResource SelectLetter}" Content="δ ="
+                                          IsChecked="{Binding WeldingSigma.CalcLength}"/>
+                            <RadioButton Grid.Row="3" Grid.Column="0" Margin="4"
+                                          Template="{StaticResource SelectLetter}" Content="z' ="
+                                          IsChecked="{Binding WeldingSigma.CalcLength}"/>
+                            <RadioButton Grid.Row="4" Grid.Column="0" Margin="4"
+                                          IsChecked="{Binding WeldingSigma.CalcSigma}"
+                                          Template="{StaticResource SelectLetter}" Content="d₃ ="/>
+                            <RadioButton Grid.Row="5" Grid.Column="0" Margin="4"
+                                         IsChecked="{Binding WeldingSigma.CalcSigma}"
+                                         Template="{StaticResource SelectLetter}" Content="σ ="/>
+
+                            <TextBox Grid.Row="0" Grid.Column="1" Margin="0,2,0,2">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Force">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Grid.Row="1" Grid.Column="1" Margin="0,2,0,2">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Square">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Grid.Row="2" Grid.Column="1" Margin="0,2,0,2">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Length">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Grid.Row="3" Grid.Column="1" Margin="0,2,0,2">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Sigma">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <TextBox Grid.Row="4" Grid.Column="1" Margin="0,2,0,2">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Sigma">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <TextBox Grid.Row="5" Grid.Column="1" Margin="0,2,0,2">
+                                <TextBox.Text>
+                                    <Binding Path="WeldingSigma.Sigma">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <TextBlock Grid.Row="0" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                                   Text="H" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                                   Text="мм&#178;" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                                   Text="мм" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                                   Text="Н / мм&#178;" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="4" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                                   Text="Н / мм&#178;" Style="{StaticResource SomeHeader}"/>
+                            <TextBlock Grid.Row="5" Grid.Column="2" Margin="5,5,0,5" HorizontalAlignment="Left"
+                                       Text="Н / мм&#178;" Style="{StaticResource SomeHeader}"/>
+                        </Grid>
+                    </Grid>
+                </Grid>
             </TabItem>
 
 
