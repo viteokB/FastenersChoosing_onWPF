@@ -139,6 +139,8 @@ namespace FastenersChoosing.ViewModels.UnDetachable
 
         public StrengthCrumple StrengthCrumple { get; set; }
 
+        public SheetsRastCalc SheetsRastCalc { get; set; }
+
         #endregion
 
         #endregion
@@ -201,6 +203,7 @@ namespace FastenersChoosing.ViewModels.UnDetachable
             NeededRivetsSrez = new();
             AreaOfCrumple = new();
             StrengthCrumple = new();
+            SheetsRastCalc = new();
         }
     }
 }

@@ -719,26 +719,26 @@
                             </Grid.ColumnDefinitions>
                             <RadioButton Template="{StaticResource SelectLetter}" Margin="4"
                                           Grid.Row="0" Grid.Column="0" Content="F' =" 
-                                          IsChecked="{Binding WeldingSigma.CalcForce}"/>
+                                          IsChecked="{Binding SheetsRastCalc.CalcF}"/>
                             <RadioButton Grid.Row="2" Grid.Column="0" Margin="4"
                                          Template="{StaticResource SelectLetter}" Content="b ="
-                                         IsChecked="{Binding WeldingSigma.CalcSquare}"/>
+                                         IsChecked="{Binding SheetsRastCalc.CalcB}"/>
                             <RadioButton Grid.Row="1" Grid.Column="0" Margin="4"
                                           Template="{StaticResource SelectLetter}" Content="δ ="
-                                          IsChecked="{Binding WeldingSigma.CalcLength}"/>
+                                          IsChecked="{Binding SheetsRastCalc.CalcQ}"/>
                             <RadioButton Grid.Row="3" Grid.Column="0" Margin="4"
                                           Template="{StaticResource SelectLetter}" Content="z' ="
-                                          IsChecked="{Binding WeldingSigma.CalcLength}"/>
+                                          IsChecked="{Binding SheetsRastCalc.CalcZ}"/>
                             <RadioButton Grid.Row="4" Grid.Column="0" Margin="4"
-                                          IsChecked="{Binding WeldingSigma.CalcSigma}"
+                                          IsChecked="{Binding SheetsRastCalc.CalcD}"
                                           Template="{StaticResource SelectLetter}" Content="d₃ ="/>
                             <RadioButton Grid.Row="5" Grid.Column="0" Margin="4"
-                                         IsChecked="{Binding WeldingSigma.CalcSigma}"
+                                         IsChecked="{Binding SheetsRastCalc.CalcS}"
                                          Template="{StaticResource SelectLetter}" Content="σ ="/>
 
                             <TextBox Grid.Row="0" Grid.Column="1" Margin="0,2,0,2">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Force">
+                                    <Binding Path="SheetsRastCalc.F">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>
@@ -747,7 +747,7 @@
                             </TextBox>
                             <TextBox Grid.Row="1" Grid.Column="1" Margin="0,2,0,2">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Square">
+                                    <Binding Path="SheetsRastCalc.Q">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>
@@ -756,7 +756,7 @@
                             </TextBox>
                             <TextBox Grid.Row="2" Grid.Column="1" Margin="0,2,0,2">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Length">
+                                    <Binding Path="SheetsRastCalc.B">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>
@@ -765,7 +765,7 @@
                             </TextBox>
                             <TextBox Grid.Row="3" Grid.Column="1" Margin="0,2,0,2">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Sigma">
+                                    <Binding Path="SheetsRastCalc.Z">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>
@@ -775,7 +775,7 @@
 
                             <TextBox Grid.Row="4" Grid.Column="1" Margin="0,2,0,2">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Sigma">
+                                    <Binding Path="SheetsRastCalc.D">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>
@@ -785,7 +785,7 @@
 
                             <TextBox Grid.Row="5" Grid.Column="1" Margin="0,2,0,2">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Sigma">
+                                    <Binding Path="SheetsRastCalc.S">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>
