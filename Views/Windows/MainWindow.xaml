@@ -199,9 +199,7 @@
                                      Style="{StaticResource MenuButtonTheme}"/>
                         <RadioButton Content="Паяное" Height="40" Width="145"
                                      FontSize="22" Foreground="White"
-                                     Style="{StaticResource MenuButtonTheme}"/>
-                        <RadioButton Content="Заформованное" Height="40" Width="205"
-                                     FontSize="22" Foreground="White"
+                                     IsChecked="{Binding IsCheckedSoldering}"
                                      Style="{StaticResource MenuButtonTheme}"/>
                     </StackPanel>
                     <ContentControl Grid.Row="1" Grid.Column="0"

@@ -25,6 +25,9 @@
             <DataTemplate DataType="{x:Type undetvm:RivitedViewModel}">
                 <view:RivetedView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type undetvm:SolderingViewModel}">
+                <view:SolderingView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -15,11 +15,13 @@ namespace FastenersChoosing.ViewModels.UnDetachable
     {
         #region Приватные UsersControl
 
-        private WeldingViewModel WeldingViewModel;
+        private WeldingViewModel WeldingViewModel = null;
 
-        private GluedViewModel GluedViewModel;
+        private GluedViewModel GluedViewModel = null;
 
-        private RivitedViewModel RivitedViewModel;
+        private RivitedViewModel RivitedViewModel = null;
+
+        private SolderingViewModel SolderingViewModel = null;
 
         #endregion
 
@@ -47,6 +49,8 @@ namespace FastenersChoosing.ViewModels.UnDetachable
             set
             {
                 Set(ref _isCheckedWelding, value);
+                if(WeldingViewModel is null)
+                    WeldingViewModel = new();
                 CurrentView = WeldingViewModel;
             }
         }
@@ -64,6 +68,8 @@ namespace FastenersChoosing.ViewModels.UnDetachable
             set
             {
                 Set(ref _isCheckedGlueing, value);
+                if(GluedViewModel is null)
+                    GluedViewModel = new();
                 CurrentView = GluedViewModel;
             }
         }
@@ -80,7 +86,27 @@ namespace FastenersChoosing.ViewModels.UnDetachable
             set
             {
                 Set(ref _isCheckedRivited, value);
+                if(RivitedViewModel is null)
+                    RivitedViewModel = new();
                 CurrentView = RivitedViewModel;
+            }
+        }
+
+        #endregion
+
+        #region IsCheckedSoldering
+
+        private bool _isCheckedSoldering;
+
+        public bool IsCheckedSoldering
+        {
+            get => _isCheckedSoldering;
+            set
+            {
+                Set(ref _isCheckedSoldering, value);
+                if(SolderingViewModel is null)
+                    SolderingViewModel = new();
+                CurrentView = SolderingViewModel;
             }
         }
 
@@ -90,10 +116,6 @@ namespace FastenersChoosing.ViewModels.UnDetachable
 
         public UnDetachableVM()
         {
-            WeldingViewModel = new();
-            GluedViewModel = new();
-            RivitedViewModel = new();
-
             IsCheckedWelding = true;
         }
     }
