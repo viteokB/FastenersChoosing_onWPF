@@ -344,23 +344,23 @@
                             </Grid.ColumnDefinitions>
                             <RadioButton Template="{StaticResource SelectLetter}" Margin="4"
                                          Grid.Row="0" Grid.Column="0" Content="F' =" 
-                                         IsChecked="{Binding WeldingSigma.CalcForce}"/>
+                                         IsChecked="{Binding NeededRivetsSrez.CalcF}"/>
                             <RadioButton Grid.Row="1" Grid.Column="0" Margin="4"
-                                         Template="{StaticResource SelectLetter}" Content="&#120529; ="
-                                         IsChecked="{Binding WeldingSigma.CalcSquare}"/>
-                            <RadioButton Grid.Row="2" Grid.Column="0" Margin="4"
                                          Template="{StaticResource SelectLetter}" Content="d₃&#178; ="
-                                         IsChecked="{Binding WeldingSigma.CalcLength}"/>
-                            <RadioButton Grid.Row="3" Grid.Column="0" Margin="4"
-                                         Template="{StaticResource SelectLetter}" Content="z' ="
-                                         IsChecked="{Binding WeldingSigma.CalcLength}"/>
+                                         IsChecked="{Binding NeededRivetsSrez.CalcD}"/>
                             <RadioButton Grid.Row="4" Grid.Column="0" Margin="4"
-                                         IsChecked="{Binding WeldingSigma.CalcSigma}"
+                                         Template="{StaticResource SelectLetter}" Content="z' ="
+                                         IsChecked="{Binding NeededRivetsSrez.CalcZ}"/>
+                            <RadioButton Grid.Row="3" Grid.Column="0" Margin="4"
+                                         IsChecked="{Binding NeededRivetsSrez.CalcT}"
                                          Template="{StaticResource SelectLetter}" Content="[ τ ] ="/>
+                            <RadioButton Grid.Row="2" Grid.Column="0" Margin="4"
+                                         IsChecked="{Binding NeededRivetsSrez.CalcI}"
+                                         Template="{StaticResource SelectLetter}" Content="i ="/>
 
                             <TextBox Grid.Row="0" Grid.Column="1" Margin="0,5,0,5">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Force">
+                                    <Binding Path="NeededRivetsSrez.F_sht">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>
@@ -369,7 +369,7 @@
                             </TextBox>
                             <TextBox Grid.Row="1" Grid.Column="1" Margin="0,5,0,5">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Square">
+                                    <Binding Path="NeededRivetsSrez.D">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>
@@ -378,7 +378,7 @@
                             </TextBox>
                             <TextBox Grid.Row="2" Grid.Column="1" Margin="0,5,0,5">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Length">
+                                    <Binding Path="NeededRivetsSrez.I">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>
@@ -387,7 +387,7 @@
                             </TextBox>
                             <TextBox Grid.Row="3" Grid.Column="1" Margin="0,5,0,5">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Sigma">
+                                    <Binding Path="NeededRivetsSrez.T">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>
@@ -396,7 +396,7 @@
                             </TextBox>
                             <TextBox Grid.Row="4" Grid.Column="1" Margin="0,5,0,5">
                                 <TextBox.Text>
-                                    <Binding Path="WeldingSigma.Sigma">
+                                    <Binding Path="NeededRivetsSrez.Z">
                                         <Binding.ValidationRules>
                                             <DataErrorValidationRule />
                                         </Binding.ValidationRules>

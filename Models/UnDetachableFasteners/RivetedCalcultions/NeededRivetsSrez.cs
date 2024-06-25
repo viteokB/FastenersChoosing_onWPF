@@ -1,12 +1,14 @@
-﻿using System;
+﻿using FastenersChoosing.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FastenersChoosing.Models.UnDetachableFasteners.RivetedCalcultions
 {
-    class NeededRivets
+    public class NeededRivetsSrez : BaseViewModel, IDataErrorInfo
     {
         #region T
 
@@ -42,6 +44,26 @@ namespace FastenersChoosing.Models.UnDetachableFasteners.RivetedCalcultions
         }
 
         private bool F_shtHasValue = false;
+
+        #endregion
+
+        #region I
+
+        private double _i;
+
+        public double I
+        {
+            get
+            {
+                return _i;
+            }
+            set
+            {
+                Set(ref _i, value);
+            }
+        }
+
+        private bool IHasValue = false;
 
         #endregion
 
@@ -125,11 +147,22 @@ namespace FastenersChoosing.Models.UnDetachableFasteners.RivetedCalcultions
             }
         }
 
+        private bool _calcI;
+        public bool CalcI
+        {
+            get => _calcI;
+            set
+            {
+                Set(ref _calcI, value);
+                Calculate = CalculateI;
+            }
+        }
+
         #endregion
 
-        public RivetSrez()
+        public NeededRivetsSrez()
         {
-            CalcT = true;
+            CalcZ = true;
         }
 
         #region Вычисления
@@ -140,33 +173,41 @@ namespace FastenersChoosing.Models.UnDetachableFasteners.RivetedCalcultions
 
         private void CalculateT()
         {
-            if (F_shtHasValue && DHasValue && ZHasValue)
+            if (F_shtHasValue && DHasValue && ZHasValue && IHasValue)
             {
-                Set(ref _t, Double.Round((4 * F_sht) / (Math.PI * D * D * Z), 4), "T");
+                Set(ref _t, Double.Round((4 * F_sht) / (Math.PI * D * D * I * Z), 4), "T");
             }
         }
 
         private void CalculateF()
         {
-            if (THasValue && DHasValue && ZHasValue)
+            if (THasValue && DHasValue && ZHasValue && IHasValue)
             {
-                Set(ref _f_sht, Double.Round((T * Math.PI * D * D * Z) / 4, 4), "F_sht");
+                Set(ref _f_sht, Double.Round((T * Math.PI * D * D * Z * I) / 4, 4), "F_sht");
             }
         }
 
         private void CalculateD()
         {
-            if (THasValue && F_shtHasValue && ZHasValue)
+            if (THasValue && F_shtHasValue && ZHasValue && IHasValue)
             {
-                Set(ref _d, Double.Round(Math.Sqrt((4 * F_sht) / (Math.PI * T * Z)), 4), "D");
+                Set(ref _d, Double.Round(Math.Sqrt((4 * F_sht) / (Math.PI * T * Z * I)), 4), "D");
             }
         }
 
         private void CalculateZ()
         {
-            if (THasValue && F_shtHasValue && DHasValue)
+            if (THasValue && F_shtHasValue && DHasValue && IHasValue)
             {
-                Set(ref _z, Double.Round(4 * F_sht / (Math.PI * D * D * T), 4), "Z");
+                Set(ref _z, Double.Round(4 * F_sht / (Math.PI * D * D * I * T), 4), "Z");
+            }
+        }
+
+        private void CalculateI()
+        {
+            if (THasValue && F_shtHasValue && DHasValue && ZHasValue)
+            {
+                Set(ref _i, Double.Round(4 * F_sht / (Math.PI * D * D * Z * T), 4), "I");
             }
         }
 
@@ -195,6 +236,9 @@ namespace FastenersChoosing.Models.UnDetachableFasteners.RivetedCalcultions
                         break;
                     case "Z":
                         CheckValidation(Z, ref ZHasValue, ref error);
+                        break;
+                    case "I":
+                        CheckValidation(I, ref IHasValue, ref error);
                         break;
                 }
 

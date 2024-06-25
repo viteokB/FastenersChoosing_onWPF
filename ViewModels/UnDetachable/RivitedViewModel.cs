@@ -133,6 +133,8 @@ namespace FastenersChoosing.ViewModels.UnDetachable
 
         public RivetSrez RivetSrez { get; set; }
 
+        public NeededRivetsSrez NeededRivetsSrez { get; set; }
+
         #endregion
 
         #endregion
@@ -192,6 +194,7 @@ namespace FastenersChoosing.ViewModels.UnDetachable
 
             LoadPerRivet = new();
             RivetSrez = new();
+            NeededRivetsSrez = new();
         }
     }
 }
